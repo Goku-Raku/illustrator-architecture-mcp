@@ -1,7 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { executeJsx } from '../../executor/jsx-runner.js';
 import { formatToolResult } from '../tool-executor.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_overprint_info — オーバープリント設定の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/PathItem/ — fillOverprint, strokeOverprint
@@ -208,9 +208,9 @@ export function register(server: McpServer): void {
     {
       title: 'Get Overprint Info',
       description:
-        'Get overprint settings of paths (incl. compound paths), text (per character) and raster images, each with a heuristic label (K100 / rich black / spot / likely accidental) inferred from colors only. The result includes the scan scope; placed files, symbols and meshes are not inspected.',
+        'Get overprint settings of paths (incl. compound paths), text (per character) and raster images, each with a heuristic label (K100 / rich black / spot / likely accidental) inferred from colors only. The result includes the scan scope; placed files, symbols and meshes are not inspected.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {},
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const result = await executeJsx(jsxCode, params);

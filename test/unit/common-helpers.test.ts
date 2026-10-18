@@ -144,7 +144,12 @@ describe('checkIllustratorVersion', () => {
     versionHelpers.writeResultFile('/result.json', { success: true });
     const result = versionHelpers.readWrittenResult('/result.json') as { warnings: string[] };
     expect(result.warnings).toHaveLength(1);
-    expect(result.warnings[0]).toContain('below the verified baseline');
+    expect(result.warnings[0]).toContain("below the upstream project's v28 baseline");
+    expect(result.warnings[0]).toContain('limited live checks on Windows/Illustrator 26.0.0');
+    expect(result.warnings[0]).toContain('do not establish compatibility for every tool');
+    expect(result.warnings[0]).toContain('docs/VALIDATION-ALPHA.md');
+    expect(result.warnings[0]).not.toContain('github.com/ie3jp');
+    expect(result.warnings[0]).not.toContain('tested only');
   });
 
   it('v24 未満はエラーを返す', () => {
@@ -172,7 +177,7 @@ describe('writeResultFile version warning', () => {
     const result = versionHelpers.readWrittenResult('/result.json') as { warnings: string[] };
     expect(result.warnings).toHaveLength(2);
     expect(result.warnings[0]).toBe('existing warning');
-    expect(result.warnings[1]).toContain('below the verified baseline');
+    expect(result.warnings[1]).toContain("below the upstream project's v28 baseline");
   });
 
   it('配列の結果には警告を付与しない', () => {

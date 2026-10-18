@@ -6,7 +6,7 @@ import {
   coordinateSystemSchema,
   resolveCoordinateSystem,
 } from '../session.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_text_frame_detail — テキストフレームの詳細情報取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/TextFrameItem/ — contents, textRanges, paragraphs
@@ -239,12 +239,12 @@ export function register(server: McpServer): void {
     {
       title: 'Get Text Frame Detail',
       description:
-        'Get detailed text frame attributes including per-character runs (font, tracking, akiLeft/akiRight, tsume, proportionalMetrics), kerning pairs with manual kerning values (1/1000 em), paragraph attributes (leading, autoLeading, paragraph style), orientation (horizontal/vertical) and threaded-frame links (nextFrameUUID/previousFrameUUID). Returns cssHints for web/CSS reproduction.',
+        'Get detailed text frame attributes including per-character runs (font, tracking, akiLeft/akiRight, tsume, proportionalMetrics), kerning pairs with manual kerning values (1/1000 em), paragraph attributes (leading, autoLeading, paragraph style), orientation (horizontal/vertical) and threaded-frame links (nextFrameUUID/previousFrameUUID). Returns cssHints for web/CSS reproduction.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         uuid: z.string().describe('UUID of the target text frame'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const resolvedParams = { ...params, coordinate_system: await resolveCoordinateSystem(params.coordinate_system) };

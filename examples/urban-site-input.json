@@ -1,0 +1,1139 @@
+{
+  "inputs": [
+    {
+      "expected_document": {
+        "name": "Your document.ai"
+      },
+      "artboard_index": 0,
+      "batch_id": "example-day",
+      "layer_name": "08h site map",
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "id": "courtyard-ground",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    80,
+                    360
+                  ],
+                  [
+                    320,
+                    360
+                  ],
+                  [
+                    320,
+                    500
+                  ],
+                  [
+                    80,
+                    500
+                  ],
+                  [
+                    80,
+                    360
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "courtyard-building",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    80,
+                    360
+                  ],
+                  [
+                    320,
+                    360
+                  ],
+                  [
+                    320,
+                    500
+                  ],
+                  [
+                    80,
+                    500
+                  ],
+                  [
+                    80,
+                    360
+                  ]
+                ],
+                [
+                  [
+                    125,
+                    390
+                  ],
+                  [
+                    275,
+                    390
+                  ],
+                  [
+                    275,
+                    470
+                  ],
+                  [
+                    125,
+                    470
+                  ],
+                  [
+                    125,
+                    390
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "housing",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [
+                      80,
+                      60
+                    ],
+                    [
+                      270,
+                      60
+                    ],
+                    [
+                      270,
+                      220
+                    ],
+                    [
+                      80,
+                      220
+                    ],
+                    [
+                      80,
+                      60
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      80,
+                      240
+                    ],
+                    [
+                      280,
+                      240
+                    ],
+                    [
+                      280,
+                      300
+                    ],
+                    [
+                      80,
+                      300
+                    ],
+                    [
+                      80,
+                      240
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      680,
+                      65
+                    ],
+                    [
+                      880,
+                      65
+                    ],
+                    [
+                      880,
+                      195
+                    ],
+                    [
+                      680,
+                      195
+                    ],
+                    [
+                      680,
+                      65
+                    ]
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "library",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    625,
+                    300
+                  ],
+                  [
+                    850,
+                    300
+                  ],
+                  [
+                    850,
+                    420
+                  ],
+                  [
+                    625,
+                    420
+                  ],
+                  [
+                    625,
+                    300
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "park",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    680,
+                    450
+                  ],
+                  [
+                    925,
+                    450
+                  ],
+                  [
+                    925,
+                    545
+                  ],
+                  [
+                    680,
+                    545
+                  ],
+                  [
+                    680,
+                    450
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "river",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    470,
+                    0
+                  ],
+                  [
+                    535,
+                    0
+                  ],
+                  [
+                    535,
+                    600
+                  ],
+                  [
+                    470,
+                    600
+                  ],
+                  [
+                    470,
+                    0
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "streets",
+            "geometry": {
+              "type": "MultiLineString",
+              "coordinates": [
+                [
+                  [
+                    380,
+                    55
+                  ],
+                  [
+                    380,
+                    545
+                  ]
+                ],
+                [
+                  [
+                    625,
+                    55
+                  ],
+                  [
+                    625,
+                    545
+                  ]
+                ],
+                [
+                  [
+                    280,
+                    270
+                  ],
+                  [
+                    380,
+                    270
+                  ]
+                ],
+                [
+                  [
+                    320,
+                    430
+                  ],
+                  [
+                    380,
+                    430
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "bridges",
+            "geometry": {
+              "type": "MultiLineString",
+              "coordinates": [
+                [
+                  [
+                    380,
+                    160
+                  ],
+                  [
+                    625,
+                    160
+                  ]
+                ],
+                [
+                  [
+                    380,
+                    460
+                  ],
+                  [
+                    625,
+                    460
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "selected-route",
+            "geometry": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  380,
+                  100
+                ],
+                [
+                  380,
+                  160
+                ],
+                [
+                  625,
+                  160
+                ],
+                [
+                  625,
+                  350
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "origin",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                380,
+                100
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "destination",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                625,
+                350
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "crossings",
+            "geometry": {
+              "type": "MultiPoint",
+              "coordinates": [
+                [
+                  470,
+                  160
+                ],
+                [
+                  535,
+                  160
+                ],
+                [
+                  470,
+                  460
+                ],
+                [
+                  535,
+                  460
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      "source_coordinates": {
+        "kind": "local_planar",
+        "crs": "SYNTHETIC_CARTESIAN_METRES",
+        "units": "m",
+        "y_axis": "up"
+      },
+      "source_ref": "Synthetic local planar teaching data; metres; NOT a surveyed site or routing-engine result",
+      "source_extent": [
+        0,
+        0,
+        1000,
+        600
+      ],
+      "frame": {
+        "left": 60,
+        "top": 225,
+        "width": 700,
+        "height": 420
+      },
+      "feature_styles": [
+        {
+          "feature_id": "courtyard-ground",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "courtyard_ground",
+            "fill": "#CFDEC4"
+          }
+        },
+        {
+          "feature_id": "courtyard-building",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "figure_ground_with_courtyard",
+            "fill": "#748480"
+          }
+        },
+        {
+          "feature_id": "housing",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "building_footprint",
+            "fill": "#D5DCD5"
+          }
+        },
+        {
+          "feature_id": "library",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "destination_building",
+            "fill": "#D6E8E4"
+          }
+        },
+        {
+          "feature_id": "park",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "mapped_green_area",
+            "fill": "#DCE8CD"
+          }
+        },
+        {
+          "feature_id": "river",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "river_barrier",
+            "fill": "#C6DFE7"
+          }
+        },
+        {
+          "feature_id": "streets",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "declared_walkable_links",
+            "stroke": {
+              "color": "#B0BDB5",
+              "width_pt": 5
+            }
+          }
+        },
+        {
+          "feature_id": "bridges",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "declared_bridge_links",
+            "stroke": {
+              "color": "#A1AEA7",
+              "width_pt": 7
+            }
+          }
+        },
+        {
+          "feature_id": "selected-route",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "explicit_teaching_path",
+            "stroke": {
+              "color": "#25797C",
+              "width_pt": 3.5
+            },
+            "evidence": "Manual path on the stated synthetic graph; length is the sum of its straight metric segments; no speed or delay assumption"
+          }
+        },
+        {
+          "feature_id": "origin",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "station_exit",
+            "fill": "#25797C",
+            "point_shape": "triangle",
+            "point_size_pt": 13
+          }
+        },
+        {
+          "feature_id": "destination",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "library_entrance",
+            "fill": "#25797C",
+            "point_shape": "diamond",
+            "point_size_pt": 13
+          }
+        },
+        {
+          "feature_id": "crossings",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "bridge_bank_connection",
+            "fill": "#FFFFFF",
+            "stroke": {
+              "color": "#899B93",
+              "width_pt": 1
+            },
+            "point_size_pt": 5
+          }
+        }
+      ]
+    },
+    {
+      "expected_document": {
+        "name": "Your document.ai"
+      },
+      "artboard_index": 0,
+      "batch_id": "example-night",
+      "layer_name": "21h site map",
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "id": "courtyard-ground",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    80,
+                    360
+                  ],
+                  [
+                    320,
+                    360
+                  ],
+                  [
+                    320,
+                    500
+                  ],
+                  [
+                    80,
+                    500
+                  ],
+                  [
+                    80,
+                    360
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "courtyard-building",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    80,
+                    360
+                  ],
+                  [
+                    320,
+                    360
+                  ],
+                  [
+                    320,
+                    500
+                  ],
+                  [
+                    80,
+                    500
+                  ],
+                  [
+                    80,
+                    360
+                  ]
+                ],
+                [
+                  [
+                    125,
+                    390
+                  ],
+                  [
+                    275,
+                    390
+                  ],
+                  [
+                    275,
+                    470
+                  ],
+                  [
+                    125,
+                    470
+                  ],
+                  [
+                    125,
+                    390
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "housing",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [
+                      80,
+                      60
+                    ],
+                    [
+                      270,
+                      60
+                    ],
+                    [
+                      270,
+                      220
+                    ],
+                    [
+                      80,
+                      220
+                    ],
+                    [
+                      80,
+                      60
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      80,
+                      240
+                    ],
+                    [
+                      280,
+                      240
+                    ],
+                    [
+                      280,
+                      300
+                    ],
+                    [
+                      80,
+                      300
+                    ],
+                    [
+                      80,
+                      240
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      680,
+                      65
+                    ],
+                    [
+                      880,
+                      65
+                    ],
+                    [
+                      880,
+                      195
+                    ],
+                    [
+                      680,
+                      195
+                    ],
+                    [
+                      680,
+                      65
+                    ]
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "library",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    625,
+                    300
+                  ],
+                  [
+                    850,
+                    300
+                  ],
+                  [
+                    850,
+                    420
+                  ],
+                  [
+                    625,
+                    420
+                  ],
+                  [
+                    625,
+                    300
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "park",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    680,
+                    450
+                  ],
+                  [
+                    925,
+                    450
+                  ],
+                  [
+                    925,
+                    545
+                  ],
+                  [
+                    680,
+                    545
+                  ],
+                  [
+                    680,
+                    450
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "river",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    470,
+                    0
+                  ],
+                  [
+                    535,
+                    0
+                  ],
+                  [
+                    535,
+                    600
+                  ],
+                  [
+                    470,
+                    600
+                  ],
+                  [
+                    470,
+                    0
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "streets",
+            "geometry": {
+              "type": "MultiLineString",
+              "coordinates": [
+                [
+                  [
+                    380,
+                    55
+                  ],
+                  [
+                    380,
+                    545
+                  ]
+                ],
+                [
+                  [
+                    625,
+                    55
+                  ],
+                  [
+                    625,
+                    545
+                  ]
+                ],
+                [
+                  [
+                    280,
+                    270
+                  ],
+                  [
+                    380,
+                    270
+                  ]
+                ],
+                [
+                  [
+                    320,
+                    430
+                  ],
+                  [
+                    380,
+                    430
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "bridges",
+            "geometry": {
+              "type": "MultiLineString",
+              "coordinates": [
+                [
+                  [
+                    380,
+                    160
+                  ],
+                  [
+                    625,
+                    160
+                  ]
+                ],
+                [
+                  [
+                    380,
+                    460
+                  ],
+                  [
+                    625,
+                    460
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "selected-route",
+            "geometry": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  380,
+                  100
+                ],
+                [
+                  380,
+                  460
+                ],
+                [
+                  625,
+                  460
+                ],
+                [
+                  625,
+                  350
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "origin",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                380,
+                100
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "destination",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                625,
+                350
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "crossings",
+            "geometry": {
+              "type": "MultiPoint",
+              "coordinates": [
+                [
+                  470,
+                  160
+                ],
+                [
+                  535,
+                  160
+                ],
+                [
+                  470,
+                  460
+                ],
+                [
+                  535,
+                  460
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "closed-gate",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                500,
+                160
+              ]
+            }
+          }
+        ]
+      },
+      "source_coordinates": {
+        "kind": "local_planar",
+        "crs": "SYNTHETIC_CARTESIAN_METRES",
+        "units": "m",
+        "y_axis": "up"
+      },
+      "source_ref": "Synthetic local planar teaching data; metres; NOT a surveyed site or routing-engine result",
+      "source_extent": [
+        0,
+        0,
+        1000,
+        600
+      ],
+      "frame": {
+        "left": 840,
+        "top": 225,
+        "width": 700,
+        "height": 420
+      },
+      "feature_styles": [
+        {
+          "feature_id": "courtyard-ground",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "courtyard_ground",
+            "fill": "#CFDEC4"
+          }
+        },
+        {
+          "feature_id": "courtyard-building",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "figure_ground_with_courtyard",
+            "fill": "#748480"
+          }
+        },
+        {
+          "feature_id": "housing",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "building_footprint",
+            "fill": "#D5DCD5"
+          }
+        },
+        {
+          "feature_id": "library",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "destination_building",
+            "fill": "#D6E8E4"
+          }
+        },
+        {
+          "feature_id": "park",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "mapped_green_area",
+            "fill": "#DCE8CD"
+          }
+        },
+        {
+          "feature_id": "river",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "river_barrier",
+            "fill": "#C6DFE7"
+          }
+        },
+        {
+          "feature_id": "streets",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "declared_walkable_links",
+            "stroke": {
+              "color": "#B0BDB5",
+              "width_pt": 5
+            }
+          }
+        },
+        {
+          "feature_id": "bridges",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "declared_bridge_links",
+            "stroke": {
+              "color": "#A1AEA7",
+              "width_pt": 7
+            }
+          }
+        },
+        {
+          "feature_id": "selected-route",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "explicit_teaching_path",
+            "stroke": {
+              "color": "#B76744",
+              "width_pt": 3.5
+            },
+            "evidence": "Manual path on the stated synthetic graph; length is the sum of its straight metric segments; no speed or delay assumption"
+          }
+        },
+        {
+          "feature_id": "origin",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "station_exit",
+            "fill": "#25797C",
+            "point_shape": "triangle",
+            "point_size_pt": 13
+          }
+        },
+        {
+          "feature_id": "destination",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "library_entrance",
+            "fill": "#25797C",
+            "point_shape": "diamond",
+            "point_size_pt": 13
+          }
+        },
+        {
+          "feature_id": "crossings",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "bridge_bank_connection",
+            "fill": "#FFFFFF",
+            "stroke": {
+              "color": "#899B93",
+              "width_pt": 1
+            },
+            "point_size_pt": 5
+          }
+        },
+        {
+          "feature_id": "closed-gate",
+          "style": {
+            "evidence_kind": "supplied",
+            "role": "closed_at_21h",
+            "fill": "#B76744",
+            "point_shape": "cross",
+            "point_size_pt": 17
+          }
+        }
+      ]
+    }
+  ]
+}

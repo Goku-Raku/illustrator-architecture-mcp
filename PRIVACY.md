@@ -1,44 +1,30 @@
-# Privacy Policy / プライバシーポリシー
+# 隱私說明 / Privacy notice
 
-Effective date / 施行日: 2026-09-25
+更新日期：2026-10-18。適用於 `illustrator-architecture-mcp` fork alpha；上游專案的維護者不代表本 fork 接收資料或提供支援。
 
-illustrator-mcp-server ("the server") is an open-source MCP server that runs entirely on your computer and controls your local copy of Adobe Illustrator.
+本伺服器透過本機 stdio 與 MCP 客戶端通訊，使用 Windows PowerShell/COM 或 macOS AppleScript 操作桌面 Adobe Illustrator。本專案未加入遙測、使用分析、崩潰上報或雲端圖像辨識服務。套件安裝及更新可能由套件管理器連線下載依賴，與一般工具執行不同。
 
-illustrator-mcp-server（以下「本サーバー」）は、お使いのコンピューター上だけで動作し、ローカルの Adobe Illustrator を操作するオープンソースの MCP サーバーです。
+## 工具會處理的資料
 
-## Data collection / 収集するデータ
+- **參數與文件內容：** 工具可能讀取或修改目前文件的物件、文字、樣式、圖層與來源註記。回傳內容可能包括文件名稱、檔案路徑、連結圖片路徑、物件資料及畫板預覽。
+- **圖片：** `arch_read_reference` 在本機產生 PNG，必要時縮小，再把圖片與座標資訊回傳 MCP 客戶端。伺服器本身不做 OCR 或影像語義辨識。
+- **物件備註：** 部分讀取與檢查工具會為缺少識別碼的物件補寫持久 UUID；`arch_inspect_elements` 因此不是完全唯讀。既有備註內容會保留。覆蓋層及樣式工具也可儲存使用者提供的角色、證據與來源欄位，這些資料會隨 Illustrator 文件保存。
+- **診斷：** 錯誤與清理警告可能包含本機路徑或主機錯誤訊息，會寫入標準錯誤或工具回應。MCP 客戶端可自行保存這些紀錄。
 
-The server does not collect, transmit, or sell any personal data. It has no telemetry, analytics, or crash reporting, and it makes no network connections of its own.
+## 本機檔案與保留
 
-本サーバーは個人データを収集・送信・販売しません。テレメトリー、アクセス解析、クラッシュレポートの仕組みはなく、本サーバー自身がネットワーク通信を行うこともありません。
+腳本橋接會在作業系統暫存目錄建立 `illustrator-mcp-*` 工作目錄，寫入腳本、參數、啟動程式與結果檔。正常工具結束及程序退出時會嘗試清理。建築預覽另使用 `illustrator-arch-preview-*` 暫存目錄，處理完成後也會嘗試移除。
 
-## How data is used and stored / データの利用と保存
+這是盡力清理，**不是立即刪除或安全抹除保證**。強制終止、程序崩潰、權限問題、檔案鎖定，或逾時後 Illustrator 才寫出結果，都可能留下暫存資料。確認相關程序已結束後，可自行檢查並清理這些目錄；不要刪除仍在使用中的工作檔。
 
-- **Tool parameters and document data** — To run a tool, the server passes its parameters to Illustrator on your machine (via AppleScript on macOS or PowerShell/COM on Windows) and reads or modifies the open Illustrator document. The result is returned only to the MCP client that called the tool (for example, Claude).
-- **Temporary files** — Each call writes its script, parameters, and result to a temporary folder in your operating system's temp directory. These files are deleted as soon as the call finishes.
-- **Files you ask for** — Files are written only when you (or the AI on your behalf) export or save: to the path you specify, or, if no path is given, as a new file next to the document (or on the Desktop for unsaved documents). Existing files are not overwritten unless you explicitly allow it.
-- **Object notes** — To identify objects between calls, the server stores a short ID at the start of an object's note (Attributes panel) inside your Illustrator document. Any note you wrote yourself is kept.
+儲存、匯出及示例腳本產生的 AI、PNG、PDF、JSON 或其他輸出會留在對應路徑，供使用者自行管理。即使 PNG 已作為預覽回傳，明確匯出的檔案也不會因此自動刪除。備份、同步軟體及 Illustrator 自己的復原檔另受各軟體管理。
 
-- **ツールの引数とドキュメントのデータ** — ツールを実行すると、本サーバーは引数をお使いのマシン上の Illustrator に渡し（macOS は AppleScript、Windows は PowerShell/COM 経由）、開いているドキュメントを読み取り・変更します。結果は、ツールを呼び出した MCP クライアント（Claude など）にだけ返します。
-- **一時ファイル** — 呼び出しのたびに、スクリプト・引数・結果を OS の一時フォルダーに書き出し、処理が終わるとすぐに削除します。
-- **指定されたファイル** — ファイルを書き込むのは、あなた（またはあなたの代わりに AI）が書き出し・保存を行ったときだけです。書き込み先は指定されたパス、指定がなければドキュメントと同じフォルダー（未保存のドキュメントはデスクトップ）に新しい名前で作ります。明示的に許可しない限り、既存のファイルは上書きしません。
-- **オブジェクトのメモ** — 呼び出しをまたいでオブジェクトを識別するため、Illustrator ドキュメント内のオブジェクトのメモ（「属性」パネル）の先頭に短い ID を記録します。あなたが書いたメモはそのまま残ります。
+## MCP 客戶端與雲端傳輸
 
-## Third-party sharing / 第三者への提供
+工具結果會交給呼叫它的 MCP 客戶端。客戶端可能將文字、圖片、路徑及工具紀錄傳給模型服務，並保留對話或同步檔案。**本機 MCP 不代表整段工作流程離線**；是否傳送雲端、保存多久、如何刪除，由客戶端設定與其服務政策決定。本伺服器不控制這些選擇，也不代替客戶端提供同意或資料保留設定。
 
-The server does not share data with any third party. Tool results are returned to the MCP client you use; how that client (for example, Claude by Anthropic) handles them is governed by the client's own privacy policy.
+發布問題回報前，請先檢查日誌、畫板預覽及 AI 文件備註是否包含個人或專案資料。本 fork 的支援與漏洞回報方式見 [SECURITY.md](SECURITY.md)；不要把本 fork 的問題直接交給上游維護者。
 
-本サーバーは第三者にデータを提供しません。ツールの結果はお使いの MCP クライアントに返され、その扱い（たとえば Anthropic の Claude）は各クライアントのプライバシーポリシーに従います。
+## English summary
 
-## Data retention / データの保持期間
-
-The server keeps no data after a call finishes: temporary files are deleted immediately, and nothing is stored outside the documents and files you work with.
-
-本サーバーは呼び出しの終了後にデータを保持しません。一時ファイルはすぐに削除され、作業中のドキュメントとファイル以外には何も保存しません。
-
-## Contact / お問い合わせ
-
-- Questions and requests / 質問・ご要望: <https://github.com/ie3jp/illustrator-mcp-server/issues>
-- Security issues / セキュリティ上の問題: <https://github.com/ie3jp/illustrator-mcp-server/security/advisories/new>
-
-Changes to this policy are published in this repository. / 本ポリシーの変更は、このリポジトリで公開します。
+This fork alpha runs as a local stdio server and does not add telemetry or cloud recognition. Tool responses can include artwork, text, object notes, local paths and rendered previews. Some inspection tools persist UUID metadata in Illustrator object notes. Temporary script and preview files are cleaned up on a best-effort basis; crashes, timeouts or cleanup failures can leave files behind. Saved/exported files remain until you manage them. Your MCP client controls whether tool results are sent to cloud services and how conversation or diagnostic data is retained.

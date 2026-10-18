@@ -6,6 +6,11 @@ import { JsxToolError } from './executor/jsx-runner.js';
 import { registerAllTools } from './tools/registry.js';
 import { formatToolResult } from './tools/tool-executor.js';
 import { registerAllPrompts } from './prompts/registry.js';
+import { register as registerArchitectureReference } from './tools/architecture/reference.js';
+import { register as registerArchitectureOverlay } from './tools/architecture/overlay.js';
+import { register as registerArchitectureStyle } from './tools/architecture/style.js';
+import { register as registerArchitectureGuidance } from './tools/architecture/guidance.js';
+import { register as registerArchitectureSiteMap } from './tools/architecture/site-map.js';
 
 /**
  * serverInfo.version は package.json から読む（手書き定数はリリースのたびにずれる）。
@@ -24,13 +29,22 @@ export function readPackageVersion(): string {
 
 export function createServer(): McpServer {
   const server = new McpServer({
-    name: 'illustrator-mcp-server',
+    name: 'illustrator-architecture-mcp',
     version: readPackageVersion(),
+  }, {
+    instructions: 'Building and urban site diagrams: use architecture-diagramming or the relevant arch_get_diagram_guidance topic. For neighbourhood/district/site analysis use urban_site, urban_atlas or urban_example; define scope, boundaries, evidence, topology, time, denominator and a testable design action. arch_read_reference returns a real PNG and frame; inspect it visually, then arch_map_preview_points maps pixels. arch_prepare_site_map is read-only: converts explicitly planar/projected GeoJSON-shaped data to calibrated overlay_params; it does not verify CRS or compute GIS results. Inspect the result before arch_add_overlay writes editable zones (including compound holes), routes, curves, markers, sectors, boundaries, labels and hatches. Sectors do not compute visibility or accessibility; routes do not solve networks or traffic. Inspect UUIDs and use permitted leaf styling; compound path members are protected. Re-capture and visually verify. Do not invent north, scale, climate or measurements. Serialize Illustrator operations across servers. In architecture-only mode use the original illustrator server for opening, saving, export and general geometry edits.',
   });
 
   applyToolErrorBoundary(server);
-  registerAllTools(server);
-  registerAllPrompts(server);
+  if (process.env['ILLUSTRATOR_ARCHITECTURE_ONLY'] !== '1') {
+    registerAllTools(server);
+    registerAllPrompts(server);
+  }
+  registerArchitectureReference(server);
+  registerArchitectureOverlay(server);
+  registerArchitectureStyle(server);
+  registerArchitectureGuidance(server);
+  registerArchitectureSiteMap(server);
 
   return server;
 }

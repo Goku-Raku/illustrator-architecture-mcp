@@ -1,25 +1,58 @@
 {
-  "name": "illustrator-mcp-server",
-  "version": "1.10.3",
-  "mcpName": "io.github.ie3jp/illustrator-mcp-server",
-  "description": "MCP server for Adobe Illustrator with 66 tools — read, create, and export design data. Everything the official Illustrator MCP (beta) can do and more, on stable Illustrator.",
+  "name": "illustrator-architecture-mcp",
+  "version": "0.1.0-alpha.1",
+  "description": "Editable architectural and urban site diagrams for Adobe Illustrator: calibrated maps, evidence-aware overlays and bundled analysis guidance. Public-source alpha.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "illustrator-mcp-server": "dist/index.js"
+    "illustrator-architecture-mcp": "dist/index.js"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "skills/architecture-diagramming/**/*",
+    "scripts/verify-offline.mjs",
+    "scripts/generate-config.mjs",
+    "README.md",
+    "README.zh-CN.md",
+    "README.en.md",
+    "README.ja.md",
+    "AGENT_SETUP.md",
+    "UPSTREAM.md",
+    "ACKNOWLEDGEMENTS.md",
+    "DISCLAIMER.md",
+    "THIRD_PARTY_NOTICES.md",
+    "PRIVACY.md",
+    "SECURITY.md",
+    "examples/urban-demo.png",
+    "examples/urban-demo.zh-TW.png",
+    "examples/urban-demo.zh-CN.png",
+    "examples/urban-demo.en.png",
+    "examples/urban-demo.ja.png",
+    "examples/urban-site-input.json",
+    "README-ARCHITECTURE.md",
+    "ARCHITECTURE-WORKFLOWS.md",
+    "VALIDATION*.md",
+    "examples/README.md",
+    "docs/ANALYSIS-ATLAS.zh-CN.md",
+    "docs/DIAGRAM-METHODOLOGY.zh-CN.md",
+    "docs/PINTEREST-RESEARCH.zh-CN.md",
+    "docs/UPGRADE-NOTES.zh-CN.md",
+    "docs/UPGRADE-V3.zh-CN.md",
+    "docs/URBAN-PINTEREST-RESEARCH.zh-CN.md",
+    "docs/URBAN-SITE-ANALYSIS.zh-CN.md",
+    "docs/VALIDATION-ALPHA.md"
   ],
   "scripts": {
-    "build": "tsc && node -e \"require('fs').cpSync('src/jsx','dist/jsx',{recursive:true})\" && node -e \"require('esbuild').buildSync({entryPoints:['src/index.ts'],bundle:true,platform:'node',format:'cjs',outfile:'dist/bundle.cjs',define:{'import.meta.url':'_importMetaUrl'},banner:{js:'const _importMetaUrl = require(\\\"url\\\").pathToFileURL(__filename).href;'}})\"",
+    "build": "node scripts/build.mjs",
     "dev": "node -e \"require('fs').cpSync('src/jsx','dist/jsx',{recursive:true})\" && tsc --watch",
     "start": "node dist/index.js",
-    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "pack:mcpb": "npm run build && npm ci --omit=dev && npx @anthropic-ai/mcpb pack && npm install",
-    "release": "npm run build && npm test && git push && git push --tags"
+    "verify:offline": "node scripts/verify-offline.mjs",
+    "verify:package": "node scripts/verify-package.mjs",
+    "config:generate": "node scripts/generate-config.mjs",
+    "release:check": "node scripts/release-check.mjs",
+    "prepack": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -32,25 +65,21 @@
     "svg"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ie3jp/illustrator-mcp-server.git"
-  },
-  "homepage": "https://github.com/ie3jp/illustrator-mcp-server",
-  "bugs": {
-    "url": "https://github.com/ie3jp/illustrator-mcp-server/issues"
-  },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "p-limit": "^7.3.0"
+    "p-limit": "^7.3.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
     "tsx": "^4.22.3",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.7"
-  }
+    "vitest": "^4.1.7",
+    "esbuild": "^0.28.2"
+  },
+  "private": true
 }

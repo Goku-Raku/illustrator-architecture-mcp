@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { coordinateSystemSchema } from '../session.js';
 import { executeToolJsx } from '../tool-executor.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_selection — 現在の選択オブジェクト情報の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/Document/ — Document.selection
@@ -219,11 +219,11 @@ export function register(server: McpServer): void {
     {
       title: 'Get Selection',
       description:
-        'Get detailed information about the currently selected objects. While editing text (text cursor or selected characters), the containing text frame is returned with a textSelection field (selected contents, length, start; insertionPoint: true for a bare cursor).',
+        'Get detailed information about the currently selected objects. While editing text (text cursor or selected characters), the containing text frame is returned with a textSelection field (selected contents, length, start; insertionPoint: true for a bare cursor).' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

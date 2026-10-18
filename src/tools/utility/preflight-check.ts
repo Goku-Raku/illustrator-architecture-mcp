@@ -7,7 +7,7 @@ import {
   resolveCoordinateSystem,
 } from '../session.js';
 import { readImageDimensions } from '../../utils/image-header.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * preflight_check — 入稿前プリフライトチェック
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/Document/ — documentColorSpace
@@ -855,7 +855,7 @@ export function register(server: McpServer): void {
         'Run pre-press quality checks (RGB in CMYK incl. gradient stops, text colors and embedded images; broken links; low resolution; fonts; white overprint on paths and text; transparency; spot colors). ' +
         '`coverage` reports per check whether it was fully checked, partial (sampled or uninspectable contents such as symbols, linked files, live effects under x1a) or skipped — a check marked partial/skipped is not a clean pass. ' +
         `Results are capped at ${MAX_RESULTS_PER_CATEGORY} per category; the rest are summarized in one entry with counts and UUIDs (\`categoryCounts\` has totals). ` +
-        'Not exhaustive — does not replace a human final review. GrayColor uses ink-quantity interpretation (0=white/no ink, 100=black/full ink), which differs from the API reference.',
+        'Not exhaustive — does not replace a human final review. GrayColor uses ink-quantity interpretation (0=white/no ink, 100=black/full ink), which differs from the API reference.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         coordinate_system: coordinateSystemSchema,
         min_dpi: z
@@ -870,7 +870,7 @@ export function register(server: McpServer): void {
           .optional()
           .describe('Target PDF/X profile for compliance checks. x1a: no transparency/RGB, fonts must be embeddable (installed). x4: allows transparency, recommends ICC profile.'),
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const resolvedParams = { ...params, coordinate_system: await resolveCoordinateSystem(params.coordinate_system) };

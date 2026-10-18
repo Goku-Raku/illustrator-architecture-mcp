@@ -462,16 +462,18 @@ function getArtboardIndexForItem(item) {
 
 // --- バージョンチェック ---
 
-// 動作下限 Illustrator 2020。使う API はすべて v24 以前からある（公式 scripting changelog の API 追加も 24.0 が最後）
+// Inherited upstream minimum-version gate; this is not a compatibility certification.
 var MIN_ILLUSTRATOR_VERSION = 24;
 
-// 実機検証済みの下限 Illustrator 2024。これ未満は警告付きで実行する
-var VERIFIED_ILLUSTRATOR_VERSION = 28;
+// The upstream project reported this baseline. This fork has a separate,
+// limited Windows/Illustrator 26.0.0 live-test record; see the alpha validation.
+var UPSTREAM_VERIFIED_ILLUSTRATOR_VERSION = 28;
 
 // writeResultFile() が全ツールの結果に付与する
 var _versionWarning = null;
 
 function checkIllustratorVersion() {
+  _versionWarning = null;
   var ver = parseInt(app.version.split(".")[0], 10);
   if (isNaN(ver) || ver < MIN_ILLUSTRATOR_VERSION) {
     return {
@@ -479,12 +481,12 @@ function checkIllustratorVersion() {
       message: "Illustrator 2020 (v24) or later is required (current: " + app.version + ")"
     };
   }
-  if (ver < VERIFIED_ILLUSTRATOR_VERSION) {
+  if (ver < UPSTREAM_VERIFIED_ILLUSTRATOR_VERSION) {
     _versionWarning =
-      "Illustrator " + app.version + " is below the verified baseline. " +
-      "This server is tested only on Illustrator 2024 (v28) and later. " +
-      "Older versions are expected to work but are unverified \u2014 " +
-      "please report anything broken at https://github.com/ie3jp/illustrator-mcp-server/issues";
+      "Illustrator " + app.version + " is below the upstream project's v28 baseline. " +
+      "This fork has separate, limited live checks on Windows/Illustrator 26.0.0; " +
+      "they do not establish compatibility for every tool, version or platform. " +
+      "See docs/VALIDATION-ALPHA.md for the actual coverage, and report fork-specific issues to this fork's maintainer.";
   }
   return null;
 }
