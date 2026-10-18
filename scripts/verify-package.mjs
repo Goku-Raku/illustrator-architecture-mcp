@@ -19,6 +19,7 @@ function run(command, args, cwd = root, json = false) {
   if (json) return JSON.parse(result.stdout);
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);
+  return result.stdout;
 }
 try {
   // No repository node_modules are copied. npm resolves only the packed runtime
@@ -33,10 +34,17 @@ try {
   const installed = join(sandbox, 'node_modules', 'illustrator-architecture-mcp');
   const pkg = JSON.parse(readFileSync(join(installed, 'package.json'), 'utf8'));
   assert.equal(pkg.version, JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version);
-  run(process.execPath, [join(installed, 'scripts', 'verify-offline.mjs')], sandbox);
+  const offlineReport = run(process.execPath, [join(installed, 'scripts', 'verify-offline.mjs')], sandbox);
+  for (const entry of ['dist/index.js', 'dist/bundle.cjs']) {
+    for (const mode of ['addon', 'standalone']) {
+      assert.ok(offlineReport.includes(`PASS ${entry} / ${mode}:`), `Missing actual offline verification result for ${entry} / ${mode}`);
+    }
+  }
+  assert.ok(offlineReport.includes('Offline checks passed.'), 'Offline verifier did not report completion.');
   for (const mode of ['standalone', 'addon']) {
     const spec = run(process.execPath, [join(installed, 'scripts', 'generate-config.mjs'), '--mode', mode], sandbox, true);
-    assert.deepEqual(spec.args, [join(installed, 'dist', 'index.js')]);
+    assert.equal(spec.args.length, 1);
+    assert.equal(realpathSync(spec.args[0]), realpathSync(join(installed, 'dist', 'index.js')));
     assert.equal(spec.command, process.execPath);
     assert.equal(spec.env.ILLUSTRATOR_ARCHITECTURE_ONLY, mode === 'addon' ? '1' : '0');
   }

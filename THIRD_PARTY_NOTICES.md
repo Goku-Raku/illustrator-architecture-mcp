@@ -1,7 +1,7 @@
 # Third-party dependency inventory
 
 This inventory records the **direct dependencies** used for the source build of
-`0.1.0-alpha.1`. Versions come from `package-lock.json`; declared licenses were
+`0.1.0-alpha.2`. Versions come from `package-lock.json`; declared licenses were
 checked against the installed package metadata and the named license files.
 This is not a complete third-party license compilation, and the project's root
 MIT license does not replace any third-party terms.

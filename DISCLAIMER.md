@@ -1,6 +1,6 @@
 # 使用邊界與免責說明
 
-適用於 `illustrator-architecture-mcp 0.1.0-alpha.1`；更新日期：2026-10-18。本說明描述目前能力、資料與操作風險，不改寫 [MIT LICENSE](LICENSE)，也不賦予第三方內容額外權利。來源與轉譯方式見 [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS.md)，程式碼沿革見 [UPSTREAM](UPSTREAM.md)。
+適用於 `illustrator-architecture-mcp 0.1.0-alpha.2`；更新日期：2026-10-18。本說明描述目前能力、資料與操作風險，不改寫 [MIT LICENSE](LICENSE)，也不賦予第三方內容額外權利。來源與轉譯方式見 [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS.md)，程式碼沿革見 [UPSTREAM](UPSTREAM.md)。
 
 ## 1. 用途與專業判斷
 

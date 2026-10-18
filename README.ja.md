@@ -2,17 +2,17 @@
 
 # Illustrator Architecture MCP
 
-**`0.1.0-alpha.1` — 建築・都市分析図を編集可能な Illustrator データとして制作するワークフロー。**
+**`0.1.0-alpha.2` — 建築・都市分析図を編集可能な Illustrator データとして制作するワークフロー。**
 
 この fork は、汎用 Illustrator MCP に、根拠に基づく分析方法、下図との座標対応、意味情報を持つオーバーレイレイヤー、都市の平面データ変換を追加します。「問い → 根拠 → 空間関係 → 図による表現 → 設計上の操作」を、編集可能なベクターとテキストに落とし込みます。
 
-この alpha は [GitHub の公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) と [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) で**ソースコードとローカルインストール用の `.tgz`** を配布します。npm、MCP Registry、プラグインマーケットプレイスには公開していません。`private: true` は npm への誤公開を防ぐ設定で、公開 fork やローカルインストールを制限しません。既存の上流パッケージやプラグインでは、この fork はインストールされません。4 言語の README は同期して管理します。詳しい分析手法のリファレンスは、現在主に簡体字中国語です。
+この alpha は [GitHub の公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) と [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.2) で**ソースコードとローカルインストール用の `.tgz`** を配布します。npm、MCP Registry、プラグインマーケットプレイスには公開していません。`private: true` は npm への誤公開を防ぐ設定で、公開 fork やローカルインストールを制限しません。既存の上流パッケージやプラグインでは、この fork はインストールされません。4 言語の README は同期して管理します。詳しい分析手法のリファレンスは、現在主に簡体字中国語です。
 
 ![合成データを使った都市の昼夜別分析例](examples/urban-demo.ja.png)
 
 *表現方法とツールの流れを示すサンプルです。実測による都市調査や GIS の計算結果ではありません。*
 
-ダウンロード：[インストール用 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [ソース ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [4 言語の編集可能な AI 原本と PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 チェックサム](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。繁体字中国語・簡体字中国語・英語・日本語のデモは、すべて Illustrator で制作しています。
+ダウンロード：[インストール用 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2.tgz) · [ソース ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2-source.zip) · [4 言語の編集可能な AI 原本と PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 チェックサム](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/SHA256SUMS.txt)。繁体字中国語・簡体字中国語・英語・日本語のデモは、すべて Illustrator で制作しています。
 
 ## 主な機能
 
@@ -56,7 +56,7 @@ npm run verify:offline
 
 ```sh
 npm init -y
-npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.1.tgz
+npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.2.tgz
 node node_modules/illustrator-architecture-mcp/scripts/verify-offline.mjs
 ```
 
@@ -117,7 +117,7 @@ npm run build
 npm test
 npm run verify:offline
 npm run verify:package
-npm run release:check -- v0.1.0-alpha.1
+npm run release:check -- v0.1.0-alpha.2
 ```
 
 `verify:package` は `.tgz` の内容を検査し、クリーンな一時ディレクトリに本番依存関係をインストールしてオフライン検証を実行します。ネットワークまたは npm キャッシュが必要な場合があります。Illustrator は起動しません。実機テストは[検証記録](docs/VALIDATION-ALPHA.md)に分けて記載します。

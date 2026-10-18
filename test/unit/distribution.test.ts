@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, realpathSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -66,13 +66,80 @@ describe('portable alpha distribution', () => {
       const output = join(work, 'generated.json');
       const run = () => spawnSync(process.execPath, [script, '--mode', 'addon', '--output', output], { cwd: work, encoding: 'utf8' });
       expect(run().status).toBe(0);
-      expect(JSON.parse(readFileSync(output, 'utf8'))).toEqual(spec);
+      const installedSpec = { ...spec, args: spec.args.map((path: string) => realpathSync(path)) };
+      expect(JSON.parse(readFileSync(output, 'utf8'))).toEqual(installedSpec);
       expect(run().status).toBe(1);
-      expect(JSON.parse(readFileSync(output, 'utf8'))).toEqual(spec);
+      expect(JSON.parse(readFileSync(output, 'utf8'))).toEqual(installedSpec);
     } finally {
       if (dirname(work) === tmpdir() && work.startsWith(join(tmpdir(), 'architecture-config-test-'))) rmSync(work, { recursive: true, force: true });
     }
   });
+
+  it.each(['directory', 'file'] as const)('runs configuration, release and offline CLIs through a symlinked %s', (aliasKind) => {
+    const work = mkdtempSync(join(tmpdir(), 'architecture-cli-alias-test-'));
+    try {
+      const packageAlias = join(work, 'package alias');
+      if (aliasKind === 'directory') symlinkSync(root, packageAlias, process.platform === 'win32' ? 'junction' : 'dir');
+      const cli = (name: string) => {
+        if (aliasKind === 'directory') return join(packageAlias, 'scripts', name);
+        // Keep the entry point inside the package's scripts directory hierarchy
+        // so Node can resolve SDK imports even with --preserve-symlinks-main.
+        const alias = join(root, 'scripts', `.cli-alias-${process.pid}-${name}`);
+        symlinkSync(join(root, 'scripts', name), alias, 'file');
+        return alias;
+      };
+      const aliases: string[] = [];
+      const call = (script: string, args: string[] = [], preserveMain = false) => {
+        const result = spawnSync(process.execPath, [...(preserveMain ? ['--preserve-symlinks-main'] : []), script, ...args], {
+          cwd: work, encoding: 'utf8', timeout: 90000, maxBuffer: 4 * 1024 * 1024,
+        });
+        expect(result.error).toBeUndefined();
+        return result;
+      };
+      try {
+        const config = cli('generate-config.mjs');
+        aliases.push(config);
+        const release = cli('release-check.mjs');
+        aliases.push(release);
+        const offline = cli('verify-offline.mjs');
+        aliases.push(offline);
+        for (const preserveMain of [false, true]) {
+          const output = join(work, `generated-${preserveMain}.json`);
+          const generated = call(config, ['--mode', 'addon', '--output', output], preserveMain);
+          expect(generated.status, generated.stderr).toBe(0);
+          expect(existsSync(output), 'CLI must produce the requested file instead of exiting without executing').toBe(true);
+          const spec = JSON.parse(readFileSync(output, 'utf8'));
+          expect(spec.command).toBe(process.execPath);
+          expect(spec.args).toEqual([realpathSync(join(root, 'dist', 'index.js'))]);
+          expect(spec.env.ILLUSTRATOR_ARCHITECTURE_ONLY).toBe('1');
+          const original = readFileSync(output, 'utf8');
+          const overwrite = call(config, ['--mode', 'standalone', '--output', output], preserveMain);
+          expect(overwrite.status).toBe(1);
+          expect(readFileSync(output, 'utf8')).toBe(original);
+
+          const validRelease = call(release, [`v${pkg.version}`], preserveMain);
+          expect(validRelease.status, validRelease.stderr).toBe(0);
+          expect(validRelease.stdout).toContain(`Validated alpha release: ${pkg.version}`);
+          const invalidRelease = call(release, ['v0.1.0'], preserveMain);
+          expect(invalidRelease.status).toBe(1);
+          expect(invalidRelease.stderr).toContain('only releases explicit alpha tags');
+
+          const verified = call(offline, [], preserveMain);
+          expect(verified.status, verified.stderr).toBe(0);
+          for (const entry of ['dist/index.js', 'dist/bundle.cjs']) {
+            for (const mode of ['addon', 'standalone']) {
+              expect(verified.stdout).toContain(`PASS ${entry} / ${mode}:`);
+            }
+          }
+          expect(verified.stdout).toContain('Offline checks passed.');
+        }
+      } finally {
+        if (aliasKind === 'file') for (const alias of aliases) rmSync(alias, { force: true });
+      }
+    } finally {
+      if (dirname(work) === tmpdir() && work.startsWith(join(tmpdir(), 'architecture-cli-alias-test-'))) rmSync(work, { recursive: true, force: true });
+    }
+  }, 180000);
 
   it('has no active upstream registry or plugin installer entry point', () => {
     for (const file of ['manifest.json', 'server.json', 'glama.json', '.claude-plugin/marketplace.json', 'plugins/ie3-design-bridge/.mcp.json']) {

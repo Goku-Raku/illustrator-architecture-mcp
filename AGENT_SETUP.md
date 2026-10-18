@@ -2,7 +2,7 @@
 
 [繁體中文 README](README.md) · [简体中文](README.zh-CN.md) · [English](README.en.md) · [日本語](README.ja.md)
 
-本指南適用於 `illustrator-architecture-mcp 0.1.0-alpha.1`。公開安裝入口是本 fork 的原始碼或本機 `.tgz`，不是上游 npm 套件、Claude 外掛或 MCPB。以下所有範例路徑都要以安裝機器的實際路徑替換；不要沿用其他電腦的路徑。
+本指南適用於 `illustrator-architecture-mcp 0.1.0-alpha.2`。公開安裝入口是本 fork 的原始碼或本機 `.tgz`，不是上游 npm 套件、Claude 外掛或 MCPB。以下所有範例路徑都要以安裝機器的實際路徑替換；不要沿用其他電腦的路徑。
 
 MCP 負責與 Illustrator 通訊及提供工具。`architecture-diagramming` skill 負責選擇分析問題、查驗資料、圖形編碼與完成檢查。README 不是自動載入的 agent 指令，MCP 的啟用也不會自動安裝 skill。即使沒有安裝 skill，`arch_get_diagram_guidance` 仍可讀取隨 MCP 附帶的同一組方法參考。
 
@@ -23,7 +23,7 @@ npm run verify:offline
 
 ```sh
 npm init -y
-npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.1.tgz
+npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.2.tgz
 node node_modules/illustrator-architecture-mcp/scripts/verify-offline.mjs
 ```
 

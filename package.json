@@ -1,6 +1,6 @@
 {
   "name": "illustrator-architecture-mcp",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Editable architectural and urban site diagrams for Adobe Illustrator: calibrated maps, evidence-aware overlays and bundled analysis guidance. Public-source alpha.",
   "type": "module",
   "main": "dist/index.js",

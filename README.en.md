@@ -2,17 +2,17 @@
 
 # Illustrator Architecture MCP
 
-**`0.1.0-alpha.1` — Editable Illustrator workflows for architectural and urban analysis diagrams.**
+**`0.1.0-alpha.2` — Editable Illustrator workflows for architectural and urban analysis diagrams.**
 
 This fork extends the general Illustrator MCP with evidence-based diagram methods, reference-image coordinate mapping, semantic overlay layers, and planar urban-data conversion. It turns “question → evidence → spatial relationship → visual encoding → design action” into editable vectors and text.
 
-This alpha provides **source code and locally installable `.tgz` archives** through the [public GitHub fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) and [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1). It is not published to npm, the MCP Registry, or a plugin marketplace. `private: true` prevents accidental npm publication; it does not restrict the public fork or local installation. Existing upstream packages and plugins do not install this fork. The four READMEs are maintained together; the full methodological references are currently primarily in Simplified Chinese.
+This alpha provides **source code and locally installable `.tgz` archives** through the [public GitHub fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) and [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.2). It is not published to npm, the MCP Registry, or a plugin marketplace. `private: true` prevents accidental npm publication; it does not restrict the public fork or local installation. Existing upstream packages and plugins do not install this fork. The four READMEs are maintained together; the full methodological references are currently primarily in Simplified Chinese.
 
 ![Urban day and night analysis example using synthetic data](examples/urban-demo.en.png)
 
 *This example demonstrates visual methods and tool workflows. It is not a measured urban study or a GIS computation result.*
 
-Downloads: [installable `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [source ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [editable AI masters and PNGs in four languages](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 checksums](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt). The Traditional Chinese, Simplified Chinese, English, and Japanese demos were all created in Illustrator.
+Downloads: [installable `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2.tgz) · [source ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2-source.zip) · [editable AI masters and PNGs in four languages](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 checksums](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/SHA256SUMS.txt). The Traditional Chinese, Simplified Chinese, English, and Japanese demos were all created in Illustrator.
 
 ## What is included
 
@@ -56,7 +56,7 @@ Run these commands in a new installation directory, replacing the example archiv
 
 ```sh
 npm init -y
-npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.1.tgz
+npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.2.tgz
 node node_modules/illustrator-architecture-mcp/scripts/verify-offline.mjs
 ```
 
@@ -117,7 +117,7 @@ npm run build
 npm test
 npm run verify:offline
 npm run verify:package
-npm run release:check -- v0.1.0-alpha.1
+npm run release:check -- v0.1.0-alpha.2
 ```
 
 `verify:package` audits the `.tgz` contents, installs production dependencies in a clean temporary directory, and runs offline verification. It may need network access or an npm cache and does not start Illustrator. Live-app tests are recorded separately in the [validation record](docs/VALIDATION-ALPHA.md).

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
@@ -11,6 +11,13 @@ const ARCHITECTURE_TOOLS = [
   'arch_prepare_site_map',
 ].sort();
 const GUIDANCE_TOPICS = ['overview', 'workflow', 'analysis_atlas', 'visual_encoding', 'worked_examples', 'mcp_execution', 'urban_site', 'urban_atlas', 'urban_example'];
+
+function isDirectExecution() {
+  if (!process.argv[1]) return false;
+  // Resolve both the module and argv to handle symlinked parents and CLI files.
+  try { return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(resolve(process.argv[1])); }
+  catch { return false; }
+}
 
 function decode(result) {
   assert.equal(result.isError, undefined, JSON.stringify(result));
@@ -100,7 +107,7 @@ export async function verifyOffline(root, report = console.log) {
   return results;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  try { await verifyOffline(resolve(dirname(fileURLToPath(import.meta.url)), '..')); }
+if (isDirectExecution()) {
+  try { await verifyOffline(resolve(dirname(realpathSync(fileURLToPath(import.meta.url))), '..')); }
   catch (error) { console.error(error.message); process.exitCode = 1; }
 }
