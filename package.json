@@ -81,5 +81,13 @@
     "vitest": "^4.1.7",
     "esbuild": "^0.28.2"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Goku-Raku/illustrator-architecture-mcp.git"
+  },
+  "homepage": "https://github.com/Goku-Raku/illustrator-architecture-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/Goku-Raku/illustrator-architecture-mcp/issues"
+  }
 }

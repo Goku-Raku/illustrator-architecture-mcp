@@ -6,11 +6,13 @@
 
 这个 fork 在通用 Illustrator MCP 之上，加入有证据依据的分析方法、底图坐标配准、语义覆盖图层与城市平面数据转换。它帮助你把“问题 → 证据 → 空间关系 → 图形表达 → 设计动作”落实成可修改的矢量与文字。
 
-本 alpha 以**源代码与本地安装用 `.tgz`** 分发；尚未上架 npm、MCP Registry 或插件市场。现有上游软件包与插件不会安装这个 fork。四份 README 同步维护；完整方法参考目前以简体中文为主。
+本 alpha 通过 [GitHub 公开 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) 与 [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) 提供**源代码与本地安装用 `.tgz`**；尚未上架 npm、MCP Registry 或插件市场。`private: true` 防止误发至 npm，不影响公开 fork 或本地安装。现有上游软件包与插件不会安装这个 fork。四份 README 同步维护；完整方法参考目前以简体中文为主。
 
 ![以合成数据制作的城市分时段分析示例](examples/urban-demo.zh-CN.png)
 
 *示例用于演示表达与工具流程，不是实测城市研究或 GIS 计算成果。*
+
+下载：[安装包 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [源代码 ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [四语可编辑 AI 母版与 PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 校验码](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。四语演示包含繁体中文、简体中文、英文与日语，均在 Illustrator 中制作。
 
 ## 提供什么
 
@@ -35,10 +37,10 @@
 
 ### 从源代码安装
 
-先将 `YOUR-ACCOUNT` 换成持有本 fork 的账号，或下载本 fork 的源代码 ZIP 后解压缩。
+克隆此公开 fork，或下载上述源代码 ZIP 后解压缩。
 
 ```sh
-git clone https://github.com/YOUR-ACCOUNT/illustrator-architecture-mcp.git
+git clone https://github.com/Goku-Raku/illustrator-architecture-mcp.git
 cd illustrator-architecture-mcp
 npm ci
 npm run build
@@ -91,6 +93,12 @@ npm run config:generate -- --mode standalone --output illustrator-architecture.s
 
 方法入口：[建筑分析流程](docs/DIAGRAM-METHODOLOGY.zh-CN.md) · [城市小区域分析](docs/URBAN-SITE-ANALYSIS.zh-CN.md) · [图形与执行契约](skills/architecture-diagramming/references/mcp-execution.md)。
 
+### 参考图拆解与风格复现
+
+搭配能看图的代理，可以观察 Pinterest 等参考图的构图、线宽、配色、透明度、箭头、标注、图层，以及平面／剖面／轴测的表达方式，再用你的项目资料重新组织，在 Illustrator 制作可编辑的矢量与文字。流程是**参考观察 → 信息与图形映射 → 样式规格 → 制作 → 视觉与语义对照修正**；先用小范围样稿确认表达，再扩展到完整图面。
+
+这是代理理解与工具绘制配合的工作流程，不是自动一键克隆。复杂三维几何需要 Rhino 或已有模型，照片与纹理需要额外素材；仅凭图片不能还原隐藏数据或准确计算。现有实机证据是四语矢量演示，尚未系统验证任意 Pinterest 图的风格复现。
+
 ## Alpha 边界与恢复
 
 - 图片内的墙线仍是像素；不内置 OCR、图像分割、图片转 CAD 或自动房间识别。
@@ -119,5 +127,7 @@ Fork 与贡献时保留上游版权，新增测试，并同步这四份 README�
 ## 来源与使用说明
 
 实际采用的程序库、建筑／城市方法及案例，以及各自的使用方式，见[来源与致谢](ACKNOWLEDGEMENTS.md)；其中区分代码依赖、方法参考与 Pinterest 阅图，没有把参考来源宣称为已集成的建筑数据库。
+
+需求与建筑方向由项目发起者提出；本 fork 的新增代码与文档由 Codex 生成并协助迭代。上游作者与第三方来源的贡献另列于致谢与许可文件。
 
 使用前请阅读[使用边界与免责声明](DISCLAIMER.md)、[上游沿革](UPSTREAM.md)、[隐私说明](PRIVACY.md)及[安全报告](SECURITY.md)。这些详细说明以繁体中文为主，免责与隐私文件另附英文摘要；软件的 MIT 许可不涵盖第三方地图、图片或字体。

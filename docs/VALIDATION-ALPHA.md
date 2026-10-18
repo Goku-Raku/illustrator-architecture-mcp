@@ -35,7 +35,11 @@
 
 ### 四語演示圖
 
-`--draw --lang zh-TW|zh-CN|en|ja` 已分別在 Illustrator 新建文件實測。四語均保持 1600 × 1060 pt 畫板、21／22 個地圖語義元素、兩條內院子路徑及相同 0.7 pt/m 比例；每份包含 **42 個原生可編輯文字框**，全部位於畫板安全範圍，另存 AI／匯出 2000 × 1325 PNG 並實際閱圖。語言預設字型及重現方法見 [examples](../examples/README.md)。README 已各自使用對應語言預覽；字型檔未隨套件提供。
+`--draw --lang zh-TW|zh-CN|en|ja` 已分別在 Illustrator 新建文件實測。四語均保持 1600 × 1060 pt 畫板、21／22 個地圖語義元素、兩條內院子路徑及相同 0.7 pt/m 比例；每份包含 **42 個原生可編輯文字框**，全部位於畫板安全範圍，另存 AI／匯出 2000 × 1325 PNG 並實際閱圖。語言預設字型及重現方法見 [examples](../examples/README.md)。README 已各自使用對應語言預覽；沒有單獨分發可安裝字型檔，AI 的 PDF 相容部分則含有文件嵌入子集。
+
+2026-10-18 發布前只讀檢查四份 AI：PDF 相容資料均具有 `/FontFile` 參照及帶子集前綴的字型名稱，分別對應 `ArialMT`、`Meiryo`、`MicrosoftYaHei`、`MicrosoftJhengHeiRegular`。另讀取製作機器上的 `arial.ttf`、`meiryo.ttc`、`msyh.ttc`、`msjh.ttc`，其所有字型項目的 OS/2 `fsType` 均為 `8`（Editable Embedding），沒有 restricted embedding 或 no-subsetting 標記。這是本次本機字型檔的技術記錄，不代表其他版本或取得方式的授權已獲核實。
+
+[Microsoft 官方 FAQ](https://learn.microsoft.com/en-us/typography/fonts/font-faq) 說明，文件嵌入須遵守字型內的權限旗標及軟體的相關限制，與單獨再分發字型不同。本次檢查沒有授予額外字型權利，也不是法律保證。母版編輯應使用合法安裝的字型，或替換為具有適當使用權的字型後重新檢查排版。
 
 原始碼重現：
 
@@ -53,7 +57,7 @@ npm run release:check -- v0.1.0-alpha.1
 ## 未驗證與不可推論的事項
 
 - macOS、其他 Illustrator 版本的實際應用程式連線、字型、渲染與輸出尚未驗證。Linux 僅可測離線部分，沒有本專案提供的 Linux Illustrator bridge。
-- CI 已配置 Windows／macOS／Linux × Node 22／24，尚未在此 fork 的遠端 GitHub 執行。設定 CI 不等於矩陣已通過。
+- CI 配置 Windows／macOS／Linux × Node 22／24。此處保留本機驗證證據；遠端結果須核對 [GitHub Actions](https://github.com/Goku-Raku/illustrator-architecture-mcp/actions/workflows/ci.yml) 中對應 commit／tag 的實際執行。設定 CI 不等於矩陣已通過，離線 CI 通過也不等於該平台的 Illustrator 實機驗證。
 - `outcome_unknown` 的通信異常處理有單元測試；沒有以強制崩潰 Illustrator 的方式測試所有真實中斷情境。超時不證明原操作已停止，不能自動重試。
 - 檢查工具可能持久化 UUID 至物件備註；所有連到同一 Illustrator 的客戶端仍須串行操作。有限的實機範例不覆蓋全部 66 項上游工具或所有第三方文件。
 - 方法與範例未取得建築、規劃、消防、無障礙、結構或環境模擬認證。完整邊界見 [DISCLAIMER](../DISCLAIMER.md)、[PRIVACY](../PRIVACY.md) 與 [SECURITY](../SECURITY.md)。

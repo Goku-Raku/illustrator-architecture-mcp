@@ -10,7 +10,9 @@
 
 原始碼版可執行 `node demo/architecture-v3-site-smoke.mjs` 作離線檢查。加上 `--draw --lang zh-TW`（或 `zh-CN`、`en`、`ja`）會在 Illustrator **新增文件**、繪圖並把帶語言代碼的 AI、PNG 與紀錄寫到本機 `outputs/`。依序執行各語言，不要並行控制 Illustrator。
 
-預設字型為繁中 `MicrosoftJhengHeiRegular`、簡中 `MicrosoftYaHei`、英文 `ArialMT`、日文 `Meiryo`。這些是本機確認已安裝的字型，未隨套件提供；其他機器可用 `--font` 指定已安裝且涵蓋該語言的 PostScript 字型名，並重新檢查字形、行長和預覽。程式會拒絕缺字型、缺翻譯或越出畫板安全區的文字，但不能替代視覺檢查。
+預設字型為繁中 `MicrosoftJhengHeiRegular`、簡中 `MicrosoftYaHei`、英文 `ArialMT`、日文 `Meiryo`。這些是製作時本機已安裝的字型；本專案沒有單獨分發可安裝字型檔。四語 AI 母版的 PDF 相容部分含有 Illustrator 嵌入的文件字型子集，不能據此視為取得獨立提取、安裝或再分發字型的授權。嵌入核驗與來源說明見[驗證紀錄](../docs/VALIDATION-ALPHA.md)。
+
+編輯母版時，應合法安裝所需字型，或換用具有適當使用權且涵蓋該語言的字型，再檢查字形、行長和預覽。重現腳本可用 `--font` 指定已安裝字型的 PostScript 名稱。程式會拒絕缺字型、缺翻譯或越出畫板安全區的文字，但不能替代視覺檢查。
 
 範例預覽來自 2026-10-18 的 Windows／Illustrator 26.0.0 實機複驗；它不代表 macOS、其他 Illustrator 版本或真實場地資料已通過驗證。舊 `urban-demo.png` 保留為簡中範例相容連結。
 
