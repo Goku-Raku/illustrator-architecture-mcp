@@ -1,6 +1,13 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+
+function isDirectExecution() {
+  if (!process.argv[1]) return false;
+  // Resolve both the module and argv to handle symlinked parents and CLI files.
+  try { return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(resolve(process.argv[1])); }
+  catch { return false; }
+}
 
 export function validateRelease(tag, pkg) {
   if (!/^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-alpha\.(?:0|[1-9]\d*)$/.test(tag || '')) {
@@ -11,8 +18,8 @@ export function validateRelease(tag, pkg) {
   return pkg.version;
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+if (isDirectExecution()) {
+  const root = resolve(dirname(realpathSync(fileURLToPath(import.meta.url))), '..');
   try {
     const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
     console.log(`Validated alpha release: ${validateRelease(process.argv[2], pkg)}`);

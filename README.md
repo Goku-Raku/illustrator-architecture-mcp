@@ -2,17 +2,17 @@
 
 # Illustrator Architecture MCP
 
-**`0.1.0-alpha.1` — 建築與城市分析圖的可編輯 Illustrator 工作流程。**
+**`0.1.0-alpha.2` — 建築與城市分析圖的可編輯 Illustrator 工作流程。**
 
 這個 fork 在通用 Illustrator MCP 之上，加入有證據依據的分析方法、底圖座標配準、語義覆蓋圖層與城市平面資料轉換。它協助你把「問題 → 證據 → 空間關係 → 圖形表達 → 設計動作」落實成可修改的向量與文字。
 
-本 alpha 透過 [GitHub 公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) 與 [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) 提供**原始碼與本機安裝用 `.tgz`**；尚未上架 npm、MCP Registry 或外掛市集。`private: true` 防止誤發至 npm，不影響公開 fork 或本機安裝。現有上游套件與外掛不會安裝這個 fork。四份 README 同步維護；完整方法參考目前以簡體中文為主。
+本 alpha 透過 [GitHub 公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) 與 [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.2) 提供**原始碼與本機安裝用 `.tgz`**；尚未上架 npm、MCP Registry 或外掛市集。`private: true` 防止誤發至 npm，不影響公開 fork 或本機安裝。現有上游套件與外掛不會安裝這個 fork。四份 README 同步維護；完整方法參考目前以簡體中文為主。
 
 ![以合成資料製作的都市分時段分析範例](examples/urban-demo.zh-TW.png)
 
 *範例用於示範表達與工具流程，不是實測城市研究或 GIS 計算成果。*
 
-下載：[安裝包 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [原始碼 ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [四語可編輯 AI 母版與 PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 校驗碼](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。四語演示包含繁體中文、簡體中文、英文與日語，均在 Illustrator 中製作。
+下載：[安裝包 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2.tgz) · [原始碼 ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-mcp-0.1.0-alpha.2-source.zip) · [四語可編輯 AI 母版與 PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 校驗碼](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.2/SHA256SUMS.txt)。四語演示包含繁體中文、簡體中文、英文與日語，均在 Illustrator 中製作。
 
 ## 提供什麼
 
@@ -56,7 +56,7 @@ npm run verify:offline
 
 ```sh
 npm init -y
-npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.1.tgz
+npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.2.tgz
 node node_modules/illustrator-architecture-mcp/scripts/verify-offline.mjs
 ```
 
@@ -117,7 +117,7 @@ npm run build
 npm test
 npm run verify:offline
 npm run verify:package
-npm run release:check -- v0.1.0-alpha.1
+npm run release:check -- v0.1.0-alpha.2
 ```
 
 `verify:package` 檢查 `.tgz` 內容，並在乾淨的暫存目錄安裝正式相依套件、執行離線驗證；可能需要網路或 npm 快取。它不啟動 Illustrator。實機測試會明確分開記錄，請見[驗證紀錄](docs/VALIDATION-ALPHA.md)。

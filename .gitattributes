@@ -8,6 +8,8 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 *.jsx text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
 *.png binary
 *.jpg binary
 *.ai binary

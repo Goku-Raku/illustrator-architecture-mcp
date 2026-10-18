@@ -1,6 +1,14 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+
+function isDirectExecution() {
+  if (!process.argv[1]) return false;
+  // Node resolves the module's real path, while argv may retain a symlinked
+  // parent (including macOS /var) or a symlink used as the CLI entry point.
+  try { return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(resolve(process.argv[1])); }
+  catch { return false; }
+}
 
 export function makeServerDefinition(root, mode = 'standalone', nodePath = process.execPath) {
   if (!['standalone', 'addon'].includes(mode)) throw new Error('Mode must be standalone or addon.');
@@ -30,9 +38,9 @@ export function parseArguments(args) {
   return { mode, output };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+if (isDirectExecution()) {
   try {
-    const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+    const root = resolve(dirname(realpathSync(fileURLToPath(import.meta.url))), '..');
     const { mode, output } = parseArguments(process.argv.slice(2));
     const json = `${JSON.stringify(makeServerDefinition(root, mode), null, 2)}\n`;
     if (output) {

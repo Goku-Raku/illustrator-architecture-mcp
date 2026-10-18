@@ -1,4 +1,4 @@
-# 0.1.0-alpha.1 驗證紀錄
+# 0.1.0-alpha.2 驗證紀錄
 
 日期：2026-10-18。這份紀錄區分本機實測、離線協定驗證與尚未驗證的環境。它不是建築性能、工程合規或跨平台相容性認證。
 
@@ -8,7 +8,7 @@
 
 | 項目 | 結果與範圍 |
 | --- | --- |
-| 編譯與單元測試 | 成功；42 個測試檔、737 項測試通過。包含新增的檢查註記、具體回滾錯誤、通信結果未知、dry run 與 apply 區別，以及 bundle 授權通知收集 |
+| 編譯與單元測試 | alpha.2 成功；42 個測試檔、739 項測試通過。包含檢查註記、具體回滾錯誤、通信結果未知、dry run 與 apply 區別、bundle 授權通知收集，以及目錄／檔案符號連結下的實際 CLI 啟動 |
 | stdio 離線協定 | ESM／bundle × addon／standalone 四種組合；分別為 7／73 工具，全部 9 個 guidance 主題可讀 |
 | 平面資料轉換 | 校準比例、長寬比、來源要素 ID、內院孔洞與錯誤 CRS 拒絕通過；沒有啟動 Illustrator |
 | 配套 Skill | canonical 與發行副本共 11 個檔案逐位元組一致；兩處均通過 Skill 格式驗證；含可獨立攜帶的建築／城市方法來源與使用限制 |
@@ -16,6 +16,8 @@
 | 用戶端讀回 | Codex、Claude、OpenCode、Pi、OMP 的目標 MCP 入口與環境變數符合審閱定義；資料庫的各應用啟停旗標未變。未重新啟動正在工作的 agent |
 
 ### Illustrator 實機：建築元素與樣式
+
+以下繪圖紀錄與四語母版來自同日的 alpha.1 候選；alpha.2 修訂安裝／驗收腳本、測試與文件，未改動繪圖工具實作。這些既有實機證據仍保留其原始範圍。
 
 在新增的 RGB 測試文件執行 `demo/architecture-v2-smoke.mjs --draw`：65 個語義元素、84 個原生組件；曲線、節點、箭頭、扇形、標記、文字及剖線生成成功。樣式 dry run 回報零變更；apply 把指定曲線線寬從 3 pt 改為 3.5 pt，回讀線寬及新增 `data_ref` 成功。另存 AI 並匯出 PNG，實際開啟 PNG 檢查文字、圖層內容與圖面。
 
@@ -27,11 +29,13 @@
 
 ## 安裝與發行檢查
 
-從 Git 暫存區匯出至沒有 `node_modules` 或 `dist` 的獨立目錄，重新執行 `npm ci`、build、完整測試與離線驗證：**全部成功，42 檔／737 項測試通過**。沒有複製開發目錄的依賴。
+初始 alpha.1 候選從 Git 暫存區匯出至沒有 `node_modules` 或 `dist` 的獨立目錄，重新執行 `npm ci`、build、完整測試與離線驗證：**全部成功，42 檔／737 項測試通過**。沒有複製開發目錄的依賴。
+
+其後 [遠端候選檢查](https://github.com/Goku-Raku/illustrator-architecture-mcp/actions/runs/39126892240) 發現 macOS 的 `/var` → `/private/var` 符號連結使 CLI 的文字路徑比對失效，產生成功退出但沒有執行的情況。alpha.2 改用真實路徑辨識主入口及套件根目錄，並新增目錄與檔案別名、預設 Node 與 `--preserve-symlinks-main` 下的真實執行回歸：設定須落盤且拒絕覆寫、非法 tag 須失敗、離線四組檢查須有實際完成輸出。修訂後本機完整 **739 項測試通過**；乾淨套件驗證也要求完整的離線結果，不能只接受退出碼 0。保留 alpha.1 的公開 tag，未公開發行該候選的安裝附件。
 
 `verify:package` 成功：封裝允許清單通過，在另一個新建暫存目錄安裝 tarball 的 production 依賴；ESM／bundle、兩種工具模式、9 個 guidance 主題、地圖轉換與兩種設定產生模式均通過。原始碼及 tarball 的檢查都在同一部 Windows 電腦完成，不能稱為另一台電腦的驗收。
 
-發行標籤 `v0.1.0-alpha.1` 的版本與獨立套件身份檢查通過。bundle 隨附 10 個實際內嵌第三方套件的完整授權／通知文本；此處不是對外發布紀錄。
+發行標籤 `v0.1.0-alpha.2` 的版本與獨立套件身份檢查通過。bundle 隨附 10 個實際內嵌第三方套件的完整授權／通知文本；此處不是對外發布紀錄。
 
 ### 四語演示圖
 
@@ -49,7 +53,7 @@ npm run build
 npm test
 npm run verify:offline
 npm run verify:package
-npm run release:check -- v0.1.0-alpha.1
+npm run release:check -- v0.1.0-alpha.2
 ```
 
 `verify:package` 檢查允許的封裝檔案，在獨立暫存目錄安裝 runtime 依賴，並從安裝後的套件執行離線驗證與兩種模式的設定產生器；不複製開發目錄的 `node_modules`。依賴安裝需要 registry 或已有快取。
