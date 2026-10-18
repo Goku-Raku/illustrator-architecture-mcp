@@ -81,6 +81,8 @@ describe('portable alpha distribution', () => {
     }
     expect(pkg.scripts['pack:mcpb']).toBeUndefined();
     expect(pkg.scripts.release).toBeUndefined();
-    expect(pkg.repository).toBeUndefined();
+    expect(pkg.repository.type).toBe('git');
+    expect(pkg.repository.url).toMatch(/^git\+https:\/\/github\.com\/[^/]+\/illustrator-architecture-mcp\.git$/);
+    expect(pkg.repository.url).not.toContain('ie3jp/illustrator-mcp-server');
   });
 });

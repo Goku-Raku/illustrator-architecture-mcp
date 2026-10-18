@@ -6,11 +6,13 @@
 
 この fork は、汎用 Illustrator MCP に、根拠に基づく分析方法、下図との座標対応、意味情報を持つオーバーレイレイヤー、都市の平面データ変換を追加します。「問い → 根拠 → 空間関係 → 図による表現 → 設計上の操作」を、編集可能なベクターとテキストに落とし込みます。
 
-この alpha の配布形式は**ソースコードとローカルインストール用の `.tgz`** です。npm、MCP Registry、プラグインマーケットプレイスには公開していません。既存の上流パッケージやプラグインでは、この fork はインストールされません。4 言語の README は同期して管理します。詳しい分析手法のリファレンスは、現在主に簡体字中国語です。
+この alpha は [GitHub の公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) と [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) で**ソースコードとローカルインストール用の `.tgz`** を配布します。npm、MCP Registry、プラグインマーケットプレイスには公開していません。`private: true` は npm への誤公開を防ぐ設定で、公開 fork やローカルインストールを制限しません。既存の上流パッケージやプラグインでは、この fork はインストールされません。4 言語の README は同期して管理します。詳しい分析手法のリファレンスは、現在主に簡体字中国語です。
 
 ![合成データを使った都市の昼夜別分析例](examples/urban-demo.ja.png)
 
 *表現方法とツールの流れを示すサンプルです。実測による都市調査や GIS の計算結果ではありません。*
+
+ダウンロード：[インストール用 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [ソース ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [4 言語の編集可能な AI 原本と PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 チェックサム](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。繁体字中国語・簡体字中国語・英語・日本語のデモは、すべて Illustrator で制作しています。
 
 ## 主な機能
 
@@ -35,10 +37,10 @@
 
 ### ソースコードからインストール
 
-`YOUR-ACCOUNT` をこの fork の所有者に置き換えるか、この fork のソース ZIP をダウンロードして展開してください。
+この公開 fork を clone するか、上記のソース ZIP をダウンロードして展開してください。
 
 ```sh
-git clone https://github.com/YOUR-ACCOUNT/illustrator-architecture-mcp.git
+git clone https://github.com/Goku-Raku/illustrator-architecture-mcp.git
 cd illustrator-architecture-mcp
 npm ci
 npm run build
@@ -91,6 +93,12 @@ CC Switch 管理外の環境では、クライアントが提供する方法で 
 
 分析方法：[建築分析の流れ](docs/DIAGRAM-METHODOLOGY.zh-CN.md) · [街区・地区の site analysis](docs/URBAN-SITE-ANALYSIS.zh-CN.md) · [図形と実行の仕様](skills/architecture-diagramming/references/mcp-execution.md)。
 
+### 参考図の読み解きとスタイルの再現
+
+画像を読み取れるエージェントと組み合わせ、Pinterest などの参考図から、構図、線幅、配色、透明度、矢印、注釈、レイヤー、平面・断面・アクソメ図の表現を読み取れます。その上で、自分のプロジェクトの情報を再構成し、Illustrator で編集可能なベクターとテキストとして制作します。流れは**参考図の観察 → 情報と図形の対応付け → スタイルの仕様化 → 制作 → 見た目と意味の照合・修正**です。まず小さなサンプルで表現を確認し、全体へ展開します。
+
+エージェントによる解釈と作図ツールを組み合わせた手順であり、自動のワンクリック複製ではありません。複雑な 3D 形状には Rhino または既存モデルが必要で、写真やテクスチャには別途素材が必要です。画像だけでは隠れたデータや正確な計算結果は復元できません。現時点の実機検証は 4 言語のベクターデモであり、任意の Pinterest 図のスタイル再現を体系的に検証したものではありません。
+
 ## Alpha の制約と復旧
 
 - 下図画像の壁線はピクセルのままです。OCR、画像分割、画像から CAD への変換、部屋の自動認識は内蔵していません。
@@ -119,5 +127,7 @@ Fork や貢献時には上流の著作権表示を保持し、必要なテスト
 ## 参照元と利用上の説明
 
 実際に使用したライブラリ、建築・都市の方法論、事例とその用途は[出典・謝辞](ACKNOWLEDGEMENTS.md)を参照してください。コード依存関係、方法の参照、Pinterest の図版調査を区別しており、参照元を統合済みの建築データベースとして扱ってはいません。
+
+要件と建築上の方向性はプロジェクトの発起人が提示し、この fork で追加したコードと文書は Codex が生成と改良を支援しました。上流の作者と第三者による貢献は、謝辞とライセンス表示に別途記載しています。
 
 利用前に[利用範囲・免責事項](DISCLAIMER.md)、[上流との関係](UPSTREAM.md)、[プライバシー](PRIVACY.md)、[セキュリティ報告](SECURITY.md)を確認してください。詳細説明は主に繁体字中国語で、免責事項とプライバシーには英語の要約もあります。ソフトウェアの MIT ライセンスは第三者の地図・画像・フォントには適用されません。

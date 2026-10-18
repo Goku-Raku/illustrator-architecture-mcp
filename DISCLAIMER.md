@@ -38,6 +38,8 @@
 
 本專案的程式碼授權不涵蓋使用者匯入的底圖、照片、建築圖紙、字型、地籍、統計資料或其他第三方內容。公開可閱、附來源連結、可下載或可供研究，都不自動代表可以重製、再授權、商用、公開散布或嵌入字型。使用與分享前，應確認各項材料的權利、署名、來源與用途條件。
 
+四語示範沒有單獨分發可安裝字型檔；AI 母版的 PDF 相容部分含有 Illustrator 嵌入的文件字型子集。這些子集不屬於本專案可重新授權的字型資產，也不授予獨立提取、安裝或再分發字型的權利。編輯時應合法安裝所需字型，或替換為具有適當使用權的字型並重新核對圖面。文件嵌入規則與本次檔案檢查見 [Microsoft 字型 FAQ](https://learn.microsoft.com/en-us/typography/fonts/font-faq) 及[驗證紀錄](docs/VALIDATION-ALPHA.md)；核驗結果不是對所有字型版本、軟體授權或再利用方式的法律保證。
+
 Pinterest 用於發現及閱讀參考圖；Pin 發布者不一定是原作者。本 fork 不重新散布研究用的第三方圖像截圖，不宣稱擁有被參考作品。若用戶自行加入地圖、資料或照片，需自行保留其出處與使用限制；涉及可識別人物、住宅位置或其他敏感資料時，也應依專案的保護需求處理。
 
 Adobe Illustrator、Adobe、其他產品及機構名稱用於辨識所需軟體或研究來源。本 fork 不是 Adobe 官方產品，也未宣稱獲得上游作者、Pinterest 或被引用機構的認證、贊助或背書。使用 Illustrator 與字型所需的軟體／內容權利由各自供應方提供，本套件不提供這些授權。
@@ -55,3 +57,5 @@ This alpha supports diagram planning and editable Illustrator artwork. It is not
 Live-app evidence is limited to Windows and Illustrator 26. Offline tests and configured CI jobs do not establish live compatibility on other platforms. Back up important files, confirm the active document, and serialize operations across servers. Some inspection tools persist object IDs in notes. After `outcome_unknown:true`, inspect the actual document and batch/object state before deciding whether to retry or recover; rollback is not a cross-process transaction guarantee.
 
 Third-party maps, images, fonts, and datasets retain their own rights and conditions. Pinterest references are research links, not a redistributed asset library. This fork is not an official Adobe product and does not imply endorsement by cited authors or institutions. A local MCP may still return content to a cloud-connected client; see [Privacy](PRIVACY.md) and [Security](SECURITY.md). The [MIT license](LICENSE) remains the software license; this notice does not extend rights to third-party materials.
+
+The four-language demos do not separately distribute installable font files. Their AI masters contain document-embedded font subsets in the PDF-compatible portion; these do not grant standalone font extraction, installation, or redistribution rights. To edit the masters, use lawfully installed fonts or suitable licensed replacements and recheck the artwork. The recorded embedding checks are limited to the files examined and do not constitute a general licensing guarantee.

@@ -6,11 +6,13 @@
 
 這個 fork 在通用 Illustrator MCP 之上，加入有證據依據的分析方法、底圖座標配準、語義覆蓋圖層與城市平面資料轉換。它協助你把「問題 → 證據 → 空間關係 → 圖形表達 → 設計動作」落實成可修改的向量與文字。
 
-本 alpha 以**原始碼與本機安裝用 `.tgz`** 散布；尚未上架 npm、MCP Registry 或外掛市集。現有上游套件與外掛不會安裝這個 fork。四份 README 同步維護；完整方法參考目前以簡體中文為主。
+本 alpha 透過 [GitHub 公開 fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) 與 [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) 提供**原始碼與本機安裝用 `.tgz`**；尚未上架 npm、MCP Registry 或外掛市集。`private: true` 防止誤發至 npm，不影響公開 fork 或本機安裝。現有上游套件與外掛不會安裝這個 fork。四份 README 同步維護；完整方法參考目前以簡體中文為主。
 
 ![以合成資料製作的都市分時段分析範例](examples/urban-demo.zh-TW.png)
 
 *範例用於示範表達與工具流程，不是實測城市研究或 GIS 計算成果。*
+
+下載：[安裝包 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [原始碼 ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [四語可編輯 AI 母版與 PNG](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 校驗碼](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。四語演示包含繁體中文、簡體中文、英文與日語，均在 Illustrator 中製作。
 
 ## 提供什麼
 
@@ -35,10 +37,10 @@
 
 ### 從原始碼安裝
 
-先將 `YOUR-ACCOUNT` 換成持有本 fork 的帳號，或下載本 fork 的原始碼 ZIP 後解壓縮。
+複製此公開 fork，或下載上述原始碼 ZIP 後解壓縮。
 
 ```sh
-git clone https://github.com/YOUR-ACCOUNT/illustrator-architecture-mcp.git
+git clone https://github.com/Goku-Raku/illustrator-architecture-mcp.git
 cd illustrator-architecture-mcp
 npm ci
 npm run build
@@ -91,6 +93,12 @@ npm run config:generate -- --mode standalone --output illustrator-architecture.s
 
 方法入口：[建築分析流程](docs/DIAGRAM-METHODOLOGY.zh-CN.md) · [城市小區域分析](docs/URBAN-SITE-ANALYSIS.zh-CN.md) · [圖形與執行契約](skills/architecture-diagramming/references/mcp-execution.md)。
 
+### 參考圖拆解與風格復現
+
+搭配可看圖的代理，可觀察 Pinterest 等參考圖的構圖、線寬、配色、透明度、箭頭、標註、圖層，以及平面／剖面／軸測的表達方式，再用你的專案資料重新組織，在 Illustrator 製作可編輯的向量與文字。流程是**參考觀察 → 資訊與圖形映射 → 樣式規格 → 製作 → 視覺與語義對照修正**；先用小範圍樣稿確認表達，再擴展到完整圖面。
+
+這是代理理解與工具繪製配合的工作流程，不是自動一鍵克隆。複雜三維幾何需要 Rhino 或既有模型，照片與紋理需要額外素材；僅憑圖片不能還原隱藏資料或準確計算。現有實機證據是四語向量演示，尚未系統驗證任意 Pinterest 圖的風格復現。
+
 ## Alpha 邊界與恢復
 
 - 圖片內的牆線仍是像素；不內建 OCR、圖像分割、圖片轉 CAD 或自動房間辨識。
@@ -119,5 +127,7 @@ Fork 與貢獻時保留上游著作權，新增測試，並同步這四份 READM
 ## 來源與使用說明
 
 實際採用的程式庫、建築／城市方法及案例，與各自的使用方式，見[來源與致謝](ACKNOWLEDGEMENTS.md)；其中區分程式碼依賴、方法參考與 Pinterest 閱圖，沒有把參考來源宣稱為已整合的建築資料庫。
+
+需求與建築方向由專案發起者提出；本 fork 的新增程式碼與文件由 Codex 生成並協助迭代。上游作者與第三方來源的貢獻另列於致謝與授權文件。
 
 使用前請閱讀[使用邊界與免責說明](DISCLAIMER.md)、[上游沿革](UPSTREAM.md)、[隱私說明](PRIVACY.md)及[安全回報](SECURITY.md)。這些詳細說明以繁體中文為主，免責與隱私文件另附英文摘要；軟體的 MIT 授權不涵蓋第三方地圖、圖片或字型。

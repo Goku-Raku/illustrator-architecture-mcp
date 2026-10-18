@@ -6,11 +6,13 @@
 
 This fork extends the general Illustrator MCP with evidence-based diagram methods, reference-image coordinate mapping, semantic overlay layers, and planar urban-data conversion. It turns “question → evidence → spatial relationship → visual encoding → design action” into editable vectors and text.
 
-This alpha is distributed as **source code and locally installable `.tgz` archives**. It is not published to npm, the MCP Registry, or a plugin marketplace. Existing upstream packages and plugins do not install this fork. The four READMEs are maintained together; the full methodological references are currently primarily in Simplified Chinese.
+This alpha provides **source code and locally installable `.tgz` archives** through the [public GitHub fork](https://github.com/Goku-Raku/illustrator-architecture-mcp) and [alpha Release](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1). It is not published to npm, the MCP Registry, or a plugin marketplace. `private: true` prevents accidental npm publication; it does not restrict the public fork or local installation. Existing upstream packages and plugins do not install this fork. The four READMEs are maintained together; the full methodological references are currently primarily in Simplified Chinese.
 
 ![Urban day and night analysis example using synthetic data](examples/urban-demo.en.png)
 
 *This example demonstrates visual methods and tool workflows. It is not a measured urban study or a GIS computation result.*
+
+Downloads: [installable `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz) · [source ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip) · [editable AI masters and PNGs in four languages](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip) · [SHA-256 checksums](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt). The Traditional Chinese, Simplified Chinese, English, and Japanese demos were all created in Illustrator.
 
 ## What is included
 
@@ -35,10 +37,10 @@ Requires **Node.js 22 or 24**, npm, and a client that supports local stdio MCP s
 
 ### Install from source
 
-Replace `YOUR-ACCOUNT` with the account hosting this fork, or download and extract this fork's source ZIP.
+Clone this public fork, or download and extract the source ZIP linked above.
 
 ```sh
-git clone https://github.com/YOUR-ACCOUNT/illustrator-architecture-mcp.git
+git clone https://github.com/Goku-Raku/illustrator-architecture-mcp.git
 cd illustrator-architecture-mcp
 npm ci
 npm run build
@@ -91,6 +93,12 @@ For environments not managed by CC Switch, merge the MCP definition through the 
 
 Methodology: [building-analysis workflow](docs/DIAGRAM-METHODOLOGY.zh-CN.md) · [urban site analysis](docs/URBAN-SITE-ANALYSIS.zh-CN.md) · [geometry and execution contracts](skills/architecture-diagramming/references/mcp-execution.md).
 
+### Reference analysis and style recreation
+
+With an agent that can inspect images, the workflow can examine Pinterest and other references for composition, line weights, colours, opacity, arrows, annotations, layers, and plan/section/axonometric conventions. It then reorganizes your project's information into editable vectors and text in Illustrator. The sequence is **reference observation → information-to-graphic mapping → style specification → production → visual and semantic comparison and revision**. Start with a small sample to establish the treatment before extending it to the full diagram.
+
+This combines agent interpretation with drawing tools; it is not an automatic one-click clone. Complex 3D geometry requires Rhino or an existing model, while photographs and textures require additional assets. An image alone cannot reveal hidden data or establish accurate calculations. Current live-app evidence consists of the four-language vector demos; recreation of arbitrary Pinterest styles has not been systematically validated.
+
 ## Alpha limits and recovery
 
 - Walls in reference images remain pixels. There is no built-in OCR, segmentation, image-to-CAD conversion, or automatic room recognition.
@@ -119,5 +127,7 @@ When forking or contributing, retain upstream copyright, add relevant tests, and
 ## Sources and use notices
 
 See [Acknowledgements](ACKNOWLEDGEMENTS.md) for the libraries, architectural and urban methods, and cases actually used, with their specific roles. It distinguishes code dependencies, methodological references, and Pinterest image research; reference sources are not presented as integrated architecture databases.
+
+The project initiator supplied the requirements and architectural direction. Codex generated and helped iterate this fork's added code and documentation. Upstream and third-party contributions are credited separately in the acknowledgements and license notices.
 
 Before use, read the [Disclaimer and limitations](DISCLAIMER.md), [Upstream history](UPSTREAM.md), [Privacy notice](PRIVACY.md), and [Security reporting](SECURITY.md). These detailed notices are primarily in Traditional Chinese; the disclaimer and privacy notice also include English summaries. The software MIT license does not cover third-party maps, images, or fonts.

@@ -4,7 +4,18 @@
 
 本版補齊 UUID 元資料寫入的工具聲明、通信中斷的未知結果回報與恢復指引。採獨立發行身份、原始碼與 `.tgz` 安裝；新增乾淨安裝及雙入口／雙模式離線驗證，退役上游安裝器身份。預設 README 為繁體中文，同步簡體中文、英文、日語；Skill 與 MCP 分開安裝，CC Switch 使用單一管理來源。
 
-範圍與當次驗證見 [alpha 紀錄](docs/VALIDATION-ALPHA.md)；來源見 [致謝](ACKNOWLEDGEMENTS.md)與 [上游](UPSTREAM.md)，使用邊界見 [免責與使用限制](DISCLAIMER.md)。這是本地準備完成的發行內容，不代表 npm、Registry 或公開 GitHub 倉庫已發佈。
+公開 fork：[Goku-Raku/illustrator-architecture-mcp](https://github.com/Goku-Raku/illustrator-architecture-mcp)。本版採 [GitHub 預發行版本](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/tag/v0.1.0-alpha.1) 散布，未上架 npm、MCP Registry 或外掛市集；`private: true` 僅防止意外發佈至 npm。
+
+下載內容：
+
+- [本機安裝包 `.tgz`](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1.tgz)。
+- [原始碼 ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-mcp-0.1.0-alpha.1-source.zip)。
+- [四語 AI 母版與 PNG ZIP](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/illustrator-architecture-demo-masters-four-languages.zip)：繁體中文、簡體中文、英文、日語，均在 Illustrator 中製作，向量與文字可編輯；不單獨提供可安裝字型，AI 的 PDF 相容部分含文件嵌入子集。編輯時須合法安裝相應字型或替換後複核。
+- [SHA-256 校驗碼](https://github.com/Goku-Raku/illustrator-architecture-mcp/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt)。
+
+四語 README 說明參考圖拆解與風格復現的工作流程：觀察、資訊與圖形映射、樣式規格、製作與對照修正。現有實機證據為四語向量演示，尚未系統驗證任意 Pinterest 圖的復現。複雜三維幾何、照片與紋理仍需相應模型或素材；不由圖片補造隱藏資料。
+
+範圍與當次驗證見 [alpha 紀錄](docs/VALIDATION-ALPHA.md)；來源見 [致謝](ACKNOWLEDGEMENTS.md)與 [上游](UPSTREAM.md)，使用邊界見 [免責與使用限制](DISCLAIMER.md)。離線檢查與 Illustrator 實機驗證分開記錄；此處不宣稱所有平台的遠端 CI 或實機測試均已通過。
 
 ---
 

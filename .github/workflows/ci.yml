@@ -55,7 +55,9 @@ jobs:
       # Source archives are supplied by GitHub automatically. Runtime tarballs
       # contain built code and guidance; they do not include node_modules.
       # No npm publish, MCP Registry upload, MCPB installer or OIDC credential.
-      - name: Assemble prerelease assets before publishing
+      # Keep the release a draft until a maintainer attaches the Illustrator-made
+      # editable demo masters and verifies the complete public asset set.
+      - name: Assemble the alpha draft for final asset verification
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
         with:
           repository: ${{ github.repository }}
@@ -74,8 +76,3 @@ jobs:
           files: |
             illustrator-architecture-mcp-*.tgz
             SHA256SUMS
-      - name: Publish the assembled alpha prerelease
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: gh release edit "$RELEASE_TAG" --draft=false --prerelease --repo "$GITHUB_REPOSITORY"
