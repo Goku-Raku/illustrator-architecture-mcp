@@ -130,4 +130,6 @@ See [Acknowledgements](ACKNOWLEDGEMENTS.md) for the libraries, architectural and
 
 The project initiator supplied the requirements and architectural direction. Codex generated and helped iterate this fork's added code and documentation. Upstream and third-party contributions are credited separately in the acknowledgements and license notices.
 
+See the [attribution record](https://github.com/Goku-Raku/illustrator-architecture-mcp/blob/main/ATTRIBUTION.md) for GitHub commit ownership and the history correction. Published tags and downloadable assets retain their original snapshots.
+
 Before use, read the [Disclaimer and limitations](DISCLAIMER.md), [Upstream history](UPSTREAM.md), [Privacy notice](PRIVACY.md), and [Security reporting](SECURITY.md). These detailed notices are primarily in Traditional Chinese; the disclaimer and privacy notice also include English summaries. The software MIT license does not cover third-party maps, images, or fonts.

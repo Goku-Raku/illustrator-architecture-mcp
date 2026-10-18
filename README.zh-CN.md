@@ -130,4 +130,6 @@ Fork 与贡献时保留上游版权，新增测试，并同步这四份 README�
 
 需求与建筑方向由项目发起者提出；本 fork 的新增代码与文档由 Codex 生成并协助迭代。上游作者与第三方来源的贡献另列于致谢与许可文件。
 
+GitHub 提交归属与历史修正见[署名记录](https://github.com/Goku-Raku/illustrator-architecture-mcp/blob/main/ATTRIBUTION.md)；已发布的标签与下载附件保留原快照。
+
 使用前请阅读[使用边界与免责声明](DISCLAIMER.md)、[上游沿革](UPSTREAM.md)、[隐私说明](PRIVACY.md)及[安全报告](SECURITY.md)。这些详细说明以繁体中文为主，免责与隐私文件另附英文摘要；软件的 MIT 许可不涵盖第三方地图、图片或字体。
