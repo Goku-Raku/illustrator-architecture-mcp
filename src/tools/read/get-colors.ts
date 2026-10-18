@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeJsx } from '../../executor/jsx-runner.js';
 import { formatToolResult } from '../tool-executor.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_colors — ドキュメントの色情報取得（スウォッチ・グラデーション・パターン・スポットカラー）
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/Swatches/ — Swatches collection
@@ -238,7 +238,7 @@ export function register(server: McpServer): void {
     {
       title: 'Get Colors',
       description:
-        'Get all color information used in the document. usedFillColors / usedStrokeColors list each distinct color once with a count of how many paths and text ranges use it (most used first).',
+        'Get all color information used in the document. usedFillColors / usedStrokeColors list each distinct color once with a count of how many paths and text ranges use it (most used first).' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         include_swatches: z
           .boolean()
@@ -256,7 +256,7 @@ export function register(server: McpServer): void {
           .default(false)
           .describe('Include print diagnostics: gradient color space validation, ink coverage per color, color model mismatch warnings'),
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const result = await executeJsx(jsxCode, params);

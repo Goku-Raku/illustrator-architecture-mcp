@@ -1,626 +1,123 @@
-**🇺🇸 English** | [🇯🇵 日本語](README.ja.md) | [🇨🇳 简体中文](README.zh-CN.md) | [🇰🇷 한국어](README.ko.md) | [🇪🇸 Español](README.es.md) | [🇩🇪 Deutsch](README.de.md) | [🇫🇷 Français](README.fr.md) | [🇵🇹 Português (BR)](README.pt-BR.md)
+[繁體中文](README.md) · [简体中文](README.zh-CN.md) · [English](README.en.md) · [日本語](README.ja.md)
 
-> 🇯🇵 日本語の README は [README.ja.md](README.ja.md) にあります。
+# Illustrator Architecture MCP
 
-# Illustrator MCP Server
+**`0.1.0-alpha.1` — 建築與城市分析圖的可編輯 Illustrator 工作流程。**
 
-[![npm](https://img.shields.io/npm/v/illustrator-mcp-server.svg?style=flat-square&colorA=18181B&colorB=18181B)](https://www.npmjs.com/package/illustrator-mcp-server)
-[![License: MIT](https://img.shields.io/badge/License-MIT-18181B.svg?style=flat-square&colorA=18181B)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-18181B.svg?style=flat-square&colorA=18181B)]()
-[![Illustrator](https://img.shields.io/badge/Illustrator-CC%202024%2B-18181B.svg?style=flat-square&colorA=18181B)](https://www.adobe.com/products/illustrator.html)
-[![MCP](https://img.shields.io/badge/MCP-Compatible-18181B.svg?style=flat-square&colorA=18181B)](https://modelcontextprotocol.io/)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/cyocun)
+這個 fork 在通用 Illustrator MCP 之上，加入有證據依據的分析方法、底圖座標配準、語義覆蓋圖層與城市平面資料轉換。它協助你把「問題 → 證據 → 空間關係 → 圖形表達 → 設計動作」落實成可修改的向量與文字。
 
-An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server for reading, manipulating, and exporting Adobe Illustrator design data — with 66 built-in tools.
+本 alpha 以**原始碼與本機安裝用 `.tgz`** 散布；尚未上架 npm、MCP Registry 或外掛市集。現有上游套件與外掛不會安裝這個 fork。四份 README 同步維護；完整方法參考目前以簡體中文為主。
 
-Control Illustrator directly from AI assistants like Claude — extract design information for web implementation, verify print-ready data, and export assets.
+![以合成資料製作的都市分時段分析範例](examples/urban-demo.zh-TW.png)
 
-Everything Adobe's official Illustrator MCP (beta) can do — and more. See the [comparison](#-comparison-with-adobes-official-illustrator-mcp).
+*範例用於示範表達與工具流程，不是實測城市研究或 GIS 計算成果。*
 
-[![illustrator mcp server MCP server](https://glama.ai/mcp/servers/ie3jp/illustrator-mcp-server/badges/card.svg)](https://glama.ai/mcp/servers/ie3jp/illustrator-mcp-server)
+## 提供什麼
 
-> [!NOTE]
-> In Claude's extension directory and plugin marketplace, this project is listed as **Design Bridge by IE3**. Anthropic's directories don't allow other companies' brand names in listing names, so the listing name differs — it is the same project, and the npm package is still `illustrator-mcp-server`. If you installed the Claude Code plugin under its earlier name (`illustrator@ie3jp-illustrator`), see [Claude Code](#-quick-start) to reinstall it.
+- **7 個建築／城市工具**，可與既有 Illustrator MCP 搭配，也能單獨提供完整工具集。
+- **9 個按需讀取的方法主題**、36 個建築與場地分析切入點、40 個城市小區域分析維度，以及完整案例。
+- 可編輯的色塊、真正帶孔洞的複合區域、折線／貝茲曲線、箭頭、節點、扇形、邊界、標註與簡單斜線填充。
+- 明確的文件身分、批次 ID、資料來源與證據狀態；樣式預檢、執行後讀回，以及失敗恢復資訊。
 
----
+| 工具 | 功能與重要契約 |
+| --- | --- |
+| `arch_read_reference` | 讀取實際畫板／局部預覽、文件身分與座標框 |
+| `arch_map_preview_points` | 將原始預覽像素點換成指定畫板的 pt 座標 |
+| `arch_add_overlay` | 在獨立新圖層建立有語義的原生可編輯元素 |
+| `arch_inspect_elements` | 檢查物件與語義；缺少識別 ID 時可能寫入物件備註，因此不是純唯讀操作 |
+| `arch_style_elements` | 先預檢，再批次修改受支援物件的樣式並讀回結果 |
+| `arch_get_diagram_guidance` | 讀取隨套件附帶的方法文件；不啟動 Illustrator |
+| `arch_prepare_site_map` | 將已投影／本地平面要素轉成等比例覆蓋參數；保留來源 ID 與孔洞，不修改 Illustrator |
 
-## 🎨 Gallery
+## 安裝
 
-All artwork below was created entirely by Claude through natural language conversation — no manual Illustrator operation involved.
+需要 **Node.js 22 或 24**、npm，以及支援本機 stdio MCP 的用戶端。實際繪圖另需已安裝、可開啟的桌面版 Adobe Illustrator。本 fork 的實機證據來自 **Windows 與 Illustrator 26**；macOS 橋接繼承自上游，但本 alpha 尚未實機驗收。其他 Illustrator 版本亦待驗證；較舊版本仍可能出現上游版本警告。詳細結果見[驗證紀錄](docs/VALIDATION-ALPHA.md)。
 
-<table>
-<tr>
-<td align="center"><img src="docs/images/example-event-poster.png" width="300" alt="Event poster — SYNC TOKYO 2026" /><br><b>Event Poster</b></td>
-<td align="center"><img src="docs/images/example-logo-concepts.png" width="300" alt="Logo concepts — Slow Drip Coffee Co." /><br><b>Logo Concepts</b></td>
-</tr>
-<tr>
-<td align="center"><img src="docs/images/example-business-card.png" width="300" alt="Business card — KUMO Studio" /><br><b>Business Card</b></td>
-<td align="center"><img src="docs/images/example-twilight-geometry.png" width="300" alt="Twilight Geometry — abstract geometric landscape" /><br><b>Twilight Geometry</b></td>
-</tr>
-</table>
+### 從原始碼安裝
 
-> See [detailed breakdowns](#example-smpte-test-pattern) below for prompts, tool usage, and artboard structure.
+先將 `YOUR-ACCOUNT` 換成持有本 fork 的帳號，或下載本 fork 的原始碼 ZIP 後解壓縮。
 
----
-
-> [!TIP]
-> Developing and maintaining this tool takes time and resources.
-> If it helps your workflow, your support means a lot — [☕ buy me a coffee!](https://ko-fi.com/cyocun)
-
----
-
-## 🚀 Quick Start
-
-### 🛠️ Claude Code
-
-Requires [Node.js 20+](https://nodejs.org/).
-
-```bash
-claude mcp add illustrator-mcp -- npx illustrator-mcp-server
-```
-
-Or install it as a plugin, which bundles the MCP server with a pre-press preflight skill (also works in Claude Cowork):
-
-```
-/plugin install ie3-design-bridge --marketplace ie3jp/illustrator-mcp-server
-```
-
-On Claude Code earlier than v2.1.275, add the marketplace first:
-
-```
-/plugin marketplace add ie3jp/illustrator-mcp-server
-/plugin install ie3-design-bridge@ie3
-```
-
-If you already added the server with `claude mcp add`, remove it first (`claude mcp remove illustrator-mcp`) so it doesn't run twice.
-
-### 🖥️ Claude Desktop
-
-1. Download **`illustrator-mcp-server.mcpb`** from [GitHub Releases](https://github.com/ie3jp/illustrator-mcp-server/releases/latest)
-2. Open Claude Desktop → **Settings** → **Extensions**
-3. Drag and drop the `.mcpb` file into the Extensions panel
-4. Click the **Install** button
-
-<details>
-<summary><strong>Alternative: manual config (always up to date via npx)</strong></summary>
-
-> [!NOTE]
-> The `.mcpb` extension does not auto-update. To update, download the new version and reinstall. If you prefer automatic updates, use the npx method below instead.
-
-Requires [Node.js 20+](https://nodejs.org/). Open the config file and add the connection settings.
-
-#### 1. Open the config file
-
-From the Claude Desktop menu bar:
-
-**Claude** → **Settings...** → **Developer** (in the left sidebar) → Click the **Edit Config** button
-
-#### 2. Add the settings
-
-```json
-{
-  "mcpServers": {
-    "illustrator": {
-      "command": "npx",
-      "args": ["illustrator-mcp-server"]
-    }
-  }
-}
-```
-
-> [!NOTE]
-> If you installed Node.js via a version manager (nvm, mise, fnm, etc.), Claude Desktop may not find `npx`. In that case, use the full path:
-> ```json
-> "command": "/full/path/to/npx"
-> ```
-> Run `which npx` in your terminal to find the path.
-
-#### 3. Save and restart
-
-1. Save the file and close the text editor
-2. **Fully quit** Claude Desktop (⌘Q / Ctrl+Q) and reopen it
-
-</details>
-
-> [!CAUTION]
-> AI can make mistakes. Do not over-rely on the output — **always have a human perform the final check on submission data**. The user is responsible for the results.
-
-> [!NOTE]
-> **macOS:** On first run, allow automation access in System Settings > Privacy & Security > Automation.
-
-> [!NOTE]
-> Most modify tools bring Illustrator to the foreground during execution. Read tools and `export` run without switching apps; `export_pdf` brings Illustrator forward only when drawing Japanese crop marks.
-
-> [!NOTE]
-> **Your files are protected by default.** `close_document` will not throw away unsaved changes unless you explicitly choose to (`save: false`), and `export`, `export_pdf`, `save_document` (save as) and `extract_design_tokens` will not replace an existing file unless `overwrite: true` is set. If that is what you want, just tell Claude to "close without saving" or "overwrite the file".
-
-### Multiple Illustrator Versions
-
-If you have multiple versions of Illustrator installed, you can tell Claude which version to use during conversation. Just say something like "Use Illustrator 2024" and the `set_illustrator_version` tool will target that version.
-
-
-**Supported versions:** Illustrator 2024 (v28) and later are verified. Illustrator 2020–2023 (v24–v27) are expected to work — every ExtendScript API this server uses has existed since v24 — but they are **not verified**, so tools return a warning when running on them. Versions older than 2020 (v24) are rejected. If something breaks on an unverified version, please [open an issue](https://github.com/ie3jp/illustrator-mcp-server/issues).
-> [!NOTE]
-> If Illustrator is already running, the server connects to the running instance regardless of the version setting. The version is only used to launch the correct version when Illustrator is not yet running.
-
-### Environment Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `ILLUSTRATOR_MCP_TIMEOUT_NORMAL` | `30000` | Timeout in milliseconds for normal tools |
-| `ILLUSTRATOR_MCP_TIMEOUT_HEAVY` | `60000` | Timeout in milliseconds for heavy tools (placing or importing files, export, preflight, style guides and color chips, size variations) |
-
-Raise these when a single call needs longer than the default: importing a large SVG with `import_svg_as_editable` (100+ objects), or running `get_document_structure` / `export_pdf` on a big document.
-
-Values must be positive integers in milliseconds. Anything else (`0`, a negative number, a non-numeric string, or a value above 2147483647) falls back to the default. They are read once at server startup.
-
-```json
-{
-  "mcpServers": {
-    "illustrator": {
-      "command": "npx",
-      "args": ["illustrator-mcp-server"],
-      "env": {
-        "ILLUSTRATOR_MCP_TIMEOUT_NORMAL": "60000",
-        "ILLUSTRATOR_MCP_TIMEOUT_HEAVY": "180000"
-      }
-    }
-  }
-}
-```
-
----
-
-## 🎬 What You Can Do
-
-```
-You:    Show me all the text information in this document
-Claude:  → list_text_frames → get_text_frame_detail
-         There are 12 text frames in the document.
-         The heading "My Design" uses Noto Sans JP Bold 48px, color #333333 ...
-```
-
-```
-You:    Run a pre-press preflight check
-Claude:  → preflight_check
-         ⚠ 2 warnings:
-         - Low resolution image: image_01.jpg (150dpi) — 300dpi or higher recommended
-         - Non-outlined fonts: 3 text frames
-```
-
-```
-You:    Check text for inconsistencies
-Claude:  → check_text_consistency
-         📝 Consistency Report:
-         ⚠ "Contact Us" vs "Contact us" — capitalization mismatch
-         ❌ "Lorem ipsum" (2 places) — placeholder text remaining
-```
-
-```
-You:    Create banner size variations from this A4 flyer
-Claude:  → get_document_info → resize_for_variation
-         Created 3 size variations:
-         - 728×90 / 300×250 / 160×600
-```
-
----
-
-## 🆚 Comparison with Adobe's Official Illustrator MCP
-
-**In short: everything the official MCP does, this project does too — plus a lot more.** Adobe ships a built-in MCP server in **Illustrator Beta** (30.4+, still beta-only as of August 2026), focused on analyzing and batch-processing existing documents. This project covers those same workflows — analysis, bulk recoloring, variations, batch artboard export, font / broken-link checks — and adds what the official server doesn't have: **creating artwork from scratch, saving documents, print & prepress checks, and design-system tools**. And it runs on stable Illustrator, no beta required.
-
-| | This project | Adobe official MCP (beta) |
-|---|---|---|
-| Installation | npm (`npx illustrator-mcp-server`) or one-click `.mcpb` install | Built into Illustrator Beta — get an auth key + URL from the app settings, connect via `mcp-remote` |
-| Supported versions | Illustrator 2024+ verified / 2020+ unverified (macOS / Windows) | Illustrator Beta 30.4+ only |
-| Number of tools | 66 | ~40 |
-| Analyzing & batch-processing existing documents | ✅ Structure / color / font analysis, bulk recolor, variations & datasets, batch artboard export (`artboard:all`), font & broken-link preflight | ✅ Its main focus |
-| Creating objects from scratch | ✅ Full set — documents, shapes, paths, text frames, path text, gradients | ❌ No new objects, text frames, or documents \* |
-| Saving documents | ✅ `save_document` (save / save-as) | ❌ Export only \* |
-| Print & prepress | ✅ Crop marks, preflight, overprint / separation info, outlines, color profiles | — |
-| Design system | ✅ Design tokens, WCAG contrast check, style guides, text consistency | — |
-
-\* Based on user reports as of April 2026 (beta). The official server is under active development — see [Adobe's documentation](https://helpx.adobe.com/illustrator/desktop/connect-with-other-apps-and-tools/about-using-ai-tools-with-illustrator.html) for the latest status.
-
----
-
-## 📖 Recipes
-
-<details>
-<summary><b>Extract colors and fonts for CSS</b></summary>
-
-```
-You:    Summarize the colors and typography in this design
-
-Claude:  → get_colors → list_text_frames → get_text_frame_detail
-
-         ■ Color Palette
-         - Primary: #1A73E8 (CMYK: 85,50,0,0)
-         - Secondary: #34A853
-         - Text: #202124
-         - Background: #FFFFFF
-
-         ■ Typography
-         - Headings: Noto Sans JP Bold / 32px
-         - Body: Noto Sans JP Regular / 16px / line-height: 1.75
-         - Captions: Noto Sans JP Medium / 12px
-```
-
-</details>
-
-<details>
-<summary><b>Export artboards as SVG / PNG</b></summary>
-
-```
-You:    Export all artboards as SVG with outlined text
-
-Claude:  → get_artboards → convert_to_outlines → export (repeated)
-
-         Exported 4 artboards:
-         - /output/header.svg
-         - /output/hero.svg
-         - /output/feature.svg
-         - /output/footer.svg
-```
-
-</details>
-
-<details>
-<summary><b>Check PDF/X-1a compliance before submission</b></summary>
-
-```
-You:    Check if this document is PDF/X-1a compliant
-
-Claude:  → preflight_check (target_pdf_profile: "x1a")
-
-         ❌ PDF/X-1a compliance errors:
-         - Transparency on 3 objects (X-1a prohibits transparency)
-         - RGB colors found in 2 places (X-1a requires CMYK/spot only)
-
-         ⚠ Warnings:
-         - 5 non-outlined fonts (embedding recommended)
-         - Image "photo_02.jpg" at 150dpi (300dpi recommended)
-```
-
-</details>
-
-<details>
-<summary><b>Check image quality for print</b></summary>
-
-```
-You:    Check placed image quality for print
-
-Claude:  → get_images (include_print_info: true)
-
-         ■ Image Quality Report:
-         ✅ hero.psd — CMYK, 350ppi effective
-         ⚠ icon_set.png — RGB (mismatch with CMYK document), 300ppi effective
-         ❌ photo_bg.jpg — CMYK, 72ppi effective (over-enlarged)
-           → Replace with a 300dpi+ image at actual size
-```
-
-</details>
-
-<details>
-<summary><b>Check WCAG color contrast ratios</b></summary>
-
-```
-You:    Check text contrast ratios
-
-Claude:  → check_contrast (auto_detect: true)
-
-         ■ WCAG Contrast Report:
-         ❌ "Caption" on "light gray" — 2.8:1 (AA fail)
-         ⚠ "Subheading" on "white" — 4.2:1 (AA Large OK, AA Normal fail)
-         ✅ "Body text" on "white" — 12.1:1 (AAA pass)
-```
-
-</details>
-
----
-
-## Workflow Templates
-
-Pre-built workflow templates available in the Claude Desktop prompt picker.
-
-| Template | Description |
-|----------|-------------|
-| `quick-layout` | Paste text content and Claude arranges it on the artboard as headings, body, and captions |
-| `print-preflight-workflow` | Comprehensive 7-step pre-press check (document → preflight → overprint → separations → images → colors → text) |
-
----
-
-## Tool Reference
-
-### Read Tools (21)
-
-<details>
-<summary>Click to expand</summary>
-
-| Tool | Description |
-|---|---|
-| `get_document_info` | Document metadata (dimensions, color mode, profile, etc.) |
-| `get_artboards` | Artboard information (position, size, orientation) |
-| `get_layers` | Layer structure as a tree |
-| `get_document_structure` | Full tree: layers → groups → objects in one call |
-| `list_text_frames` | List of text frames (font, size, style name) |
-| `get_text_frame_detail` | All attributes of a specific text frame (kerning, paragraph settings, etc.) |
-| `get_colors` | Color information in use (swatches, gradients, spot colors; each used color listed once with a usage count). `include_diagnostics` for print analysis |
-| `get_path_items` | Path/shape data (fill, stroke, anchor points) |
-| `get_groups` | Groups, clipping masks, and compound path structure |
-| `get_effects` | Effects and appearance info (opacity, blend mode) |
-| `get_images` | Embedded/linked image info (resolution, broken link detection). `include_print_info` for effective resolution per axis & color space mismatch |
-| `get_symbols` | Symbol definitions and instances |
-| `get_guidelines` | Guide information |
-| `get_overprint_info` | Overprint settings on paths, text and raster images + K100/rich black detection, with a heuristic label inferred from colors only (it cannot know your intent) |
-| `get_separation_info` | Color separation info (process and spot plates actually used, with usage counts; inks with no detected usage are listed separately) |
-| `get_selection` | Details of currently selected objects |
-| `find_objects` | Search by criteria (name, type, color, font, etc.) |
-| `check_contrast` | WCAG color contrast ratio check (manual or auto-detect overlapping pairs) |
-| `extract_design_tokens` | Extract design tokens as CSS custom properties, JSON, or Tailwind config (writing to a file never replaces an existing one without `overwrite: true`) |
-| `list_fonts` | List fonts available in Illustrator (no document required) |
-| `convert_coordinate` | Convert points between artboard and document coordinate systems |
-
-</details>
-
-### Modify Tools (39)
-
-<details>
-<summary>Click to expand</summary>
-
-| Tool | Description |
-|---|---|
-| `create_rectangle` | Create a rectangle (supports rounded corners) |
-| `create_ellipse` | Create an ellipse |
-| `create_line` | Create a line |
-| `create_text_frame` | Create a text frame (point or area type) with optional tracking, leading and paragraph alignment. `font_name` must be the exact name from `list_fonts` — an unknown font is an error, not a silent fallback |
-| `create_path` | Create a custom path (with Bezier handles) |
-| `place_image` | Place a raster/PDF image file as linked or embedded (SVG is rejected — use `import_svg_as_editable`) |
-| `import_svg_as_editable` | Import an SVG file as editable Illustrator paths/text/groups (not as a linked image) |
-| `modify_object` | Modify properties of an existing object (incl. text tracking, leading and alignment). Fill/stroke on a group or compound path is applied to every path and text inside it |
-| `convert_to_outlines` | Convert text to outlines |
-| `create_document` | Create a new document (size, color mode) |
-| `close_document` | Close the active document (with unsaved changes, it won't close unless `save` is specified) |
-| `resize_for_variation` | Create size variations from a source artboard (proportional scaling) |
-| `align_objects` | Align and distribute multiple objects |
-| `replace_color` | Find and replace colors across document (with tolerance) |
-| `manage_layers` | Add, rename, show/hide, lock/unlock, reorder, or delete layers |
-| `place_color_chips` | Extract unique colors and place color chip swatches outside artboard |
-| `save_document` | Save or save-as the active document (save-as won't replace an existing file without `overwrite: true`) |
-| `open_document` | Open a document from file path |
-| `group_objects` | Group objects (supports clipping masks) |
-| `ungroup_objects` | Ungroup a group, releasing children |
-| `duplicate_objects` | Duplicate objects with optional offset |
-| `set_z_order` | Change stacking order (front/back) |
-| `move_to_layer` | Move objects to a different layer |
-| `delete_objects` | Delete objects by UUID (locked objects need `force_unlock`; `undo` may revert it, but undo steps follow Illustrator's history, not MCP calls) |
-| `manage_artboards` | Add, remove, resize, rename, rearrange artboards |
-| `manage_swatches` | Add, update, or delete swatches |
-| `manage_linked_images` | Relink or embed placed images |
-| `manage_datasets` | List/apply/create datasets, import/export variables |
-| `apply_graphic_style` | Apply a graphic style to objects |
-| `list_graphic_styles` | List all graphic styles in the document |
-| `apply_text_style` | Apply character or paragraph style to text |
-| `list_text_styles` | List all character and paragraph styles |
-| `create_gradient` | Create gradients and apply to objects |
-| `create_path_text` | Create text along a path (optional tracking and alignment; same exact-`font_name` rule as `create_text_frame`) |
-| `place_symbol` | Place or replace symbol instances |
-| `select_objects` | Select objects by UUID (multi-select supported) |
-| `create_crop_marks` | Create crop marks (trim marks) with locale-based style auto-detection (Japanese double-line / Western single-line) |
-| `place_style_guide` | Place a visual style guide outside the artboard on a non-printing layer (colors, fonts, spacing, margins, guide gaps). Measurement marks on the artboard itself are opt-in (`annotate_artboard`) |
-| `undo` | Undo/redo operations (multi-step) |
-
-</details>
-
-### Export Tools (2)
-
-<details>
-<summary>Click to expand</summary>
-
-| Tool | Description |
-|---|---|
-| `export` | SVG / PNG / JPG export (by artboard, selection, or UUID — selection/UUID export only that object; won't replace an existing file without `overwrite: true`) |
-| `export_pdf` | Print-ready PDF export (crop marks, bleed, selective downsampling, output intent) |
-
-</details>
-
-### Utility (4)
-
-<details>
-<summary>Click to expand</summary>
-
-| Tool | Description |
-|---|---|
-| `preflight_check` | Pre-press check (RGB mixing, broken links, low resolution, white overprint, transparency+overprint interaction, PDF/X compliance, etc.). Reports which checks were complete or only partial (`coverage`) |
-| `check_text_consistency` | Text consistency check (placeholder detection, notation variation patterns, full text listing for LLM analysis) |
-| `set_workflow` | Set workflow mode (web/print) to override auto-detected coordinate system |
-| `set_illustrator_version` | Choose which Illustrator version to use when several are installed |
-
-</details>
-
----
-
-## Coordinate System
-
-The server automatically detects the coordinate system from the document:
-
-| Document type | Coordinate system | Origin | Y axis |
-|---|---|---|---|
-| CMYK / Print | `document` | Bottom-left | Up |
-| RGB / Web | `artboard-web` | Top-left of artboard | Down |
-
-- **CMYK documents** use Illustrator's native coordinate system, matching what print designers expect
-- **RGB documents** use a web-style coordinate system that is easier for AI to work with
-- Use `set_workflow` to override the auto-detected coordinate system if needed
-- All tool responses include a `coordinateSystem` field indicating which system is active
-- If auto-detection fails, tools return an error instead of guessing — pass `coordinate_system` explicitly or call `set_workflow`
-
----
-
-## Example: SMPTE Test Pattern
-
-A 1920×1080 SMPTE color bar test pattern, created entirely through natural language instructions to Claude.
-
-**Prompt:**
-
-> Make a 1920x1080 video test pattern
-
-**Result:**
-
-<img src="docs/images/example-smpte-test-pattern.png" width="720" alt="SMPTE color bar test pattern generated by Claude via illustrator-mcp-server" />
-
-**Artboard structure** (via `get_document_structure`):
-
-<details>
-<summary>Click to expand</summary>
-
-```
-Labels
-├── title-safe-label        (text)    — "TITLE SAFE (10%)"
-├── action-safe-label       (text)    — "ACTION SAFE (5%)"
-├── credit-label            (text)    — "Generated by illustrator-mcp-server"
-├── test-label              (text)    — "SMPTE COLOR BARS — TEST PATTERN"
-├── format-label            (text)    — "Full HD — 16:9"
-└── resolution-label        (text)    — "1920 x 1080"
-
-Center Cross
-├── title-safe              (path)    — 1536×864 stroke rectangle
-├── action-safe             (path)    — 1728×972 stroke rectangle
-├── cross-circle            (path)    — 150×150 center circle
-├── cross-v                 (path)    — vertical crosshair
-└── cross-h                 (path)    — horizontal crosshair
-
-Color Bars
-├── pluge-black … pluge-navy   (path ×9)  — PLUGE / grayscale bottom strip
-├── rev-white … rev-blue       (path ×7)  — reverse color middle strip
-└── bar-white … bar-blue       (path ×7)  — 75% SMPTE color bars
-```
-
-</details>
-
-> Tools used: `create_document`, `manage_layers`, `create_rectangle` ×23, `create_line` ×2, `create_ellipse`, `create_text_frame` ×6, `modify_object` ×4, `save_document`, `export`
-
----
-
-## Example: Twilight Geometry
-
-An abstract geometric landscape artwork — created entirely by Claude, with no human design direction beyond "make whatever art you want."
-
-**Prompt:**
-
-> Make an art piece of your own imagination in Illustrator. Take your time. Create whatever you like.
-
-**Claude's process:**
-
-> I'll create "Twilight Geometry" — an abstract landscape with geometric celestial elements. A deep gradient twilight sky, layered mountain silhouettes, a crescent moon with decorative rings, and stars scattered across the canvas.
-
-> Diamond-shaped stars in different colors — warm whites, cool blues, lavender purples — each one subtly different to suggest different types of stars. Constellation lines connecting them. Wireframe triangles and a hexagon floating in the sky for a mystical atmosphere.
-
-> A water surface at the bottom with the moon's light reflected as shimmering wavy lines, fading as they descend.
-
-**Claude's reflection:**
-
-> It turned out better than I expected. I think the hybrid world of geometry and nature came through well.
-
-**Result:**
-
-<img src="docs/images/example-twilight-geometry.png" width="720" alt="Twilight Geometry — abstract geometric landscape art generated by Claude via illustrator-mcp-server" />
-
-> Tools used: `create_document`, `manage_layers` ×4, `create_rectangle` ×2, `create_gradient` ×2, `create_path` ×11, `create_ellipse` ×14, `create_line` ×4, `create_text_frame` ×2, `modify_object`, `set_z_order`, `export`
-
----
-
-## Known Limitations
-
-| Limitation | Details |
-|---|---|
-| Windows support | Windows uses PowerShell COM automation (not yet tested on real hardware) |
-| Live effects | Drop shadow and other effect parameters can be detected but not read |
-| Color profiles | Color profile assignment only — full conversion is not available |
-| Bleed settings | Bleed settings cannot be read (Illustrator API limitation) |
-| WebP export | Not supported — use PNG or SVG instead |
-| Japanese crop marks | PDF export draws the marks temporarily on the document with the TrimMark command, exports, then removes them. Single-artboard documents only — multi-artboard documents return an error |
-| Font embedding | Embedding mode (full/subset) cannot be controlled directly — use PDF presets |
-| Size variations | Proportional scaling only — text may need manual adjustment afterward |
-| SVG text glyph fallback | Illustrator does not fall back per glyph across a `font-family` list. If the first family is installed but lacks a glyph, `import_svg_as_editable` drops that character silently and still reports success. Use one font-family per text element and choose one that contains the glyphs you need. An *uninstalled* family is substituted instead and is unaffected; `preflight_check` covers that separate case |
-| Object notes | Tools identify objects by a UUID stored in each object's note (Attributes panel). A note you wrote yourself is kept — the UUID is added in front of it |
-
----
-
-<br>
-
-# For Developers
-
-## Architecture
-
-```mermaid
-flowchart LR
-    Claude <-->|MCP Protocol| Server["MCP Server\n(TypeScript/Node.js)"]
-
-    Server -.->|generate| Runner["run-{uuid}.scpt / .ps1"]
-    Server -.->|generate| JSX["script-{uuid}.jsx\n(BOM UTF-8)"]
-    Server -.->|write| PF["params-{uuid}.json"]
-
-    Runner -->|execFile| osascript
-    Runner -->|execFile| PS["powershell.exe"]
-
-    osascript -->|do javascript| AI["Adobe Illustrator\n(ExtendScript/JSX)"]
-    PS -->|DoJavaScript| AI
-
-    JSX -.->|execute| AI
-    PF -.->|read| AI
-    AI -.->|write| RF["result-{uuid}.json"]
-    RF -.->|read| Server
-```
-
----
-
-## Building from Source
-
-```bash
-git clone https://github.com/ie3jp/illustrator-mcp-server.git
-cd illustrator-mcp-server
-npm install
+```sh
+git clone https://github.com/YOUR-ACCOUNT/illustrator-architecture-mcp.git
+cd illustrator-architecture-mcp
+npm ci
 npm run build
-claude mcp add illustrator-mcp -- node /path/to/illustrator-mcp-server/dist/index.js
-```
-
-### Verify
-
-```bash
-npx @modelcontextprotocol/inspector npx illustrator-mcp-server
-```
-
-### Testing
-
-```bash
-# Unit tests
 npm test
-
-# E2E smoke test (requires Illustrator running)
-npm run build   # E2E runs dist/index.js
-npx tsx test/e2e/e2e-test.ts        # every tool (192 cases)
-npx tsx test/e2e/e2e-behaviors.ts   # behavior & regression checks (91 cases)
-npx tsx test/e2e/e2e-cmyk-only.ts
-npx tsx test/e2e/svg-import-test.ts
+npm run verify:offline
 ```
 
-The E2E suites create their own documents, never touch other open documents, and close them without saving. `e2e-test.ts` exercises every registered tool (RGB + CMYK, coordinate-system auto-detection); `e2e-behaviors.ts` checks behaviors that must hold on the real app — notes are preserved, partial failures are reported, files are not overwritten, crop marks and PDF export leave your artwork intact.
+`verify:offline` 檢查 ESM／bundle 啟動、兩種模式的工具列表、9 個方法主題及地圖轉換範例，**不啟動或修改 Illustrator**。安裝相依套件仍需 npm registry 或可用快取。不要跨作業系統直接複製 `node_modules`。
 
----
+### 從下載的 `.tgz` 安裝
 
-## Privacy Policy
+在新的安裝資料夾內執行，將範例路徑換成實際下載位置：
 
-illustrator-mcp-server runs entirely on your computer. It collects no personal data, has no telemetry, and makes no network connections of its own. Tool parameters and document data go only to your local Illustrator and back to the MCP client that called the tool; temporary files are deleted after each call. See the full [Privacy Policy](https://github.com/ie3jp/illustrator-mcp-server/blob/main/PRIVACY.md).
+```sh
+npm init -y
+npm install --omit=dev /absolute/path/illustrator-architecture-mcp-0.1.0-alpha.1.tgz
+node node_modules/illustrator-architecture-mcp/scripts/verify-offline.mjs
+```
 
----
+這是本機封存檔安裝，不是 npm 上架套件的名稱查詢。原始碼使用 `dist/index.js`；此方式使用 `node_modules/illustrator-architecture-mcp/dist/index.js`。保留各自完整的執行目錄、相依套件與附帶的 `skills/`。
 
-## Disclaimer
+## 連接 MCP 與配套 skill
 
-This tool automates many Illustrator operations, but AI can make mistakes. Extracted data, preflight results, and document modifications should always be reviewed by a person. **Do not rely on this tool as your sole quality check.** Use it as an assistant alongside your own manual verification, especially for print submissions and client deliverables. The authors are not responsible for any damages or losses arising from the use of this software or its outputs.
+| 模式 | 設定 | 適用情境 |
+| --- | --- | --- |
+| `standalone`（預設完整模式） | `ILLUSTRATOR_ARCHITECTURE_ONLY=0` 或省略 | 由本 fork 提供 66 個基礎工具與 7 個新增工具；避免同時啟用重複的基礎伺服器 |
+| `addon`（附加模式） | `ILLUSTRATOR_ARCHITECTURE_ONLY=1` | 只提供 7 個新增工具；保留既有 Illustrator MCP 負責開檔、儲存與匯出 |
 
----
+在原始碼目錄產生包含**這台電腦實際路徑**的單一伺服器 JSON：
 
-## License
+```sh
+npm run config:generate -- --mode standalone --output illustrator-architecture.server.json
+```
 
-[MIT](LICENSE)
+已有基礎伺服器時改用 `--mode addon`。`.tgz` 安裝則執行 `node node_modules/illustrator-architecture-mcp/scripts/generate-config.mjs`，並加上相同參數。產生器只建立新檔案，不覆寫既有檔案，也不更動任何用戶端設定。檢查內容後再由設定管理員匯入；不要把含本機絕對路徑的生成檔提交到公開儲存庫。
+
+**使用 CC Switch 管理時：**先用你部署的管理腳本執行 `snapshot`。共用 skill 的唯一維護位置是 `~/.cc-switch/skills/architecture-diagramming`，用戶端技能資料夾連結到此處；不要在全域 `.agents/skills` 再建立副本。更新完整 skill 後執行 `manage.ps1 -Action publish`，再執行 `-Action check`。MCP 使用已審閱的 JSON，經 `-Action set-mcp -McpId illustrator_architecture -SpecFile <絕對路徑>` 發布。保留各用戶端的啟用／停用選擇與原生執行設定。這些 `manage.*` 是部署者的管理層腳本，本套件不附帶，也不假定所有 CC Switch 安裝都有它們。
+
+未採用 CC Switch 管理的環境，可透過用戶端支援的方式合併 MCP 設定，並安裝完整 `skills/architecture-diagramming/` 到其支援的技能位置。**README 不會自動載入為操作規則；MCP 與 skill 必須分別設定。**詳細步驟、設定範例與驗收方式見[配對安裝指南](AGENT_SETUP.md)。完成後在適當時機重新連接 MCP／重新載入技能，不自動中斷進行中的工作。
+
+## 使用方式
+
+1. 先選要判斷的問題，區分觀察、提供資料、推斷與提案。
+2. 讀取真實底圖預覽；取點時使用回傳圖像的原始像素尺寸，經工具換算座標。
+3. 若使用地圖資料，先確認投影、單位與 Y 軸方向，再以 `arch_prepare_site_map` 準備參數。
+4. 在獨立圖層建立元素，保留來源與唯一批次 ID；修改前先預檢。
+5. 重新查看圖面，檢查配準、通行關係、遮擋、圖例與文字，最後另存與匯出。
+
+> 請分析這個街區白天與夜間到公園的路徑。先核對入口、跨河通道和開放時段；缺資料就標記未知。用同一範圍、比例與圖例比較，再用 Illustrator 建立可編輯的分析圖。
+
+方法入口：[建築分析流程](docs/DIAGRAM-METHODOLOGY.zh-CN.md) · [城市小區域分析](docs/URBAN-SITE-ANALYSIS.zh-CN.md) · [圖形與執行契約](skills/architecture-diagramming/references/mcp-execution.md)。
+
+## Alpha 邊界與恢復
+
+- 圖片內的牆線仍是像素；不內建 OCR、圖像分割、圖片轉 CAD 或自動房間辨識。
+- `arch_prepare_site_map` 不抓取地圖、不重投影、不計算路網等時圈、密度或水文。一般經緯度 GeoJSON 必須先轉為明確的平面座標。
+- 扇形、箭頭、節點與線寬是表達元素，不是日照、風場、人流或可達性計算；沒有資料就不應補造北向、比例尺或量化結果。
+- `compound_zone` 的洞必須嚴格在外框內，且互不接觸、相交或嵌套；不進行幾何布林運算。樣式工具只接受契約允許的物件，不能任意修改群組或複合路徑成員。
+- 部分檢查會為物件補寫 ID 備註。所有連到同一 Illustrator 的伺服器必須循序操作，以免改到非預期文件。
+- 通訊失敗若回傳 `outcome_unknown:true`，先讀回文件、圖層與批次／物件狀態，再決定如何恢復；不要直接重試寫入或反覆全域復原。局部回滾不是跨程序交易保證。
+- Alpha 的 API 與安裝方式仍可能調整。離線檢查通過，不等於實機幾何、字型與輸出已驗收。
+
+## 開發、驗證與授權
+
+```sh
+npm ci
+npm run build
+npm test
+npm run verify:offline
+npm run verify:package
+npm run release:check -- v0.1.0-alpha.1
+```
+
+`verify:package` 檢查 `.tgz` 內容，並在乾淨的暫存目錄安裝正式相依套件、執行離線驗證；可能需要網路或 npm 快取。它不啟動 Illustrator。實機測試會明確分開記錄，請見[驗證紀錄](docs/VALIDATION-ALPHA.md)。
+
+Fork 與貢獻時保留上游著作權，新增測試，並同步這四份 README；提交問題時附版本、作業系統、Illustrator 版本及可重現步驟。來源為 [ie3jp/illustrator-mcp-server](https://github.com/ie3jp/illustrator-mcp-server)，基線 `57c5c101a5192c61535493f39b653e6f92b8eb29`（1.10.3）。本 fork 採用 [MIT 授權](LICENSE)，並非 Adobe 官方產品。
+
+## 來源與使用說明
+
+實際採用的程式庫、建築／城市方法及案例，與各自的使用方式，見[來源與致謝](ACKNOWLEDGEMENTS.md)；其中區分程式碼依賴、方法參考與 Pinterest 閱圖，沒有把參考來源宣稱為已整合的建築資料庫。
+
+使用前請閱讀[使用邊界與免責說明](DISCLAIMER.md)、[上游沿革](UPSTREAM.md)、[隱私說明](PRIVACY.md)及[安全回報](SECURITY.md)。這些詳細說明以繁體中文為主，免責與隱私文件另附英文摘要；軟體的 MIT 授權不涵蓋第三方地圖、圖片或字型。

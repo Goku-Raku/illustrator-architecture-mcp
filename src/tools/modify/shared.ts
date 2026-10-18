@@ -17,8 +17,10 @@ export const coerceBoolean = z.preprocess(
 // --- 共通 annotations 定数 ---
 // - DESTRUCTIVE: 消す、または既存の値・ファイルを上書きしうるもの（オプション次第で上書きするものも含む。hint は "may"）
 // - WRITE: 足すだけ、または中身を変えず配置（位置・重ね順・レイヤー）・選択・セッション設定だけを変えるもの
-// - READ: 読み取りのみ。ensureUUID() は note に識別用 UUID を足すが、既存 note を消さず出力にも現れないので
-//   readOnlyHint: true のまま（2 回目以降は読むだけなので冪等）。ファイルを書き出すものは READ にしない
+// - READ: 読み取り・純計算のみ。ensureUUID() で note に識別子を追記するツールは、
+//   見た目を変えなくても WRITE_IDEMPOTENT。ファイルを書き出すものも READ にしない。
+
+export const UUID_METADATA_WRITE_NOTICE = ' This tool may persist missing UUID metadata in object notes while preserving existing note content; it does not change artwork appearance.';
 
 export const READ_ANNOTATIONS = {
   readOnlyHint: true,

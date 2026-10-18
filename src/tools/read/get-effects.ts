@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeToolJsx } from '../tool-executor.js';
 import { coordinateSystemSchema } from '../session.js';
-import { READ_ANNOTATIONS, coerceBoolean } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE, coerceBoolean } from '../modify/shared.js';
 /**
  * get_effects — オブジェクトに適用されたエフェクト情報の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/PageItem/ — typename, geometricBounds, visibleBounds
@@ -166,13 +166,13 @@ export function register(server: McpServer): void {
     'get_effects',
     {
       title: 'Get Effects',
-      description: 'Get effect and appearance information',
+      description: 'Get effect and appearance information' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         target: z.string().optional().describe('Filter by UUID for a specific object'),
         selection_only: coerceBoolean.optional().default(false).describe('Selected objects only'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

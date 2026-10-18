@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeToolJsx } from '../tool-executor.js';
 import { coordinateSystemSchema } from '../session.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_groups — グループアイテム情報の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/GroupItems/ — GroupItems collection
@@ -187,13 +187,13 @@ export function register(server: McpServer): void {
     {
       title: 'Get Groups',
       description:
-        'Get structure of groups, clipping masks, and compound paths. Children of a clipping-mask group mark the mask path with clipping: true. When depth cuts the tree off, the item has childrenTruncated: true and childCount (children is empty only because of the depth limit).',
+        'Get structure of groups, clipping masks, and compound paths. Children of a clipping-mask group mark the mask path with clipping: true. When depth cuts the tree off, the item has childrenTruncated: true and childCount (children is empty only because of the depth limit).' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         layer_name: z.string().optional().describe('Filter by layer name (all layers if omitted)'),
         depth: z.number().optional().default(10).describe('Maximum traversal depth'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

@@ -7,7 +7,7 @@ import {
   resolveCoordinateSystem,
 } from '../session.js';
 import { readImageDimensions } from '../../utils/image-header.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_images — 配置画像（リンク/埋め込み）の情報取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/PlacedItem/ — file, matrix, contentVariable
@@ -191,7 +191,7 @@ export function register(server: McpServer): void {
     {
       title: 'Get Images',
       description:
-        'Get embedded and linked image information: file path, broken-link status (linkBroken: file missing on disk), pixel size, and effective resolution (ppi at the placed size; rotation-safe).',
+        'Get embedded and linked image information: file path, broken-link status (linkBroken: file missing on disk), pixel size, and effective resolution (ppi at the placed size; rotation-safe).' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         coordinate_system: coordinateSystemSchema,
         include_print_info: z
@@ -200,7 +200,7 @@ export function register(server: McpServer): void {
           .default(false)
           .describe('Include print diagnostics: resolutionH/resolutionV (effective ppi per axis; they differ when scaled non-uniformly) and, for embedded raster images, a colorSpaceMismatch flag.'),
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const resolvedParams = { ...params, coordinate_system: await resolveCoordinateSystem(params.coordinate_system) };

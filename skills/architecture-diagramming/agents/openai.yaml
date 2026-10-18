@@ -1,0 +1,4 @@
+interface:
+  display_name: "建筑与城市分析图"
+  short_description: "从建筑到街区与片区，选择分析问题、证据和图形表达，并配合 Illustrator MCP 制作"
+  default_prompt: "使用 $architecture-diagramming 根据我的建筑或城市场地资料，选择分析问题、范围、图形元素与验证方法，并按要求策划或绘制分析图。"

@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeToolJsx } from '../tool-executor.js';
 import { coordinateSystemSchema } from '../session.js';
-import { READ_ANNOTATIONS, coerceBoolean } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE, coerceBoolean } from '../modify/shared.js';
 /**
  * list_text_frames — テキストフレーム一覧の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/TextFrameItems/ — TextFrameItems collection
@@ -253,7 +253,7 @@ export function register(server: McpServer): void {
     'list_text_frames',
     {
       title: 'List Text Frames',
-      description: 'List text frames with summary-level information (including orientation and threaded-frame links nextFrameUUID/previousFrameUUID). Supports reading-order sort, pagination, and a lightweight contents-only mode. layer_name includes text inside groups and sublayers of that layer.',
+      description: 'List text frames with summary-level information (including orientation and threaded-frame links nextFrameUUID/previousFrameUUID). Supports reading-order sort, pagination, and a lightweight contents-only mode. layer_name includes text inside groups and sublayers of that layer.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         layer_name: z.string().optional().describe('Filter by layer name'),
         artboard_index: z.number().int().min(0).optional().describe('Filter by artboard index (0-based integer)'),
@@ -263,7 +263,7 @@ export function register(server: McpServer): void {
         limit: z.number().int().min(1).optional().describe('Maximum number of items to return (for pagination). Applied after sort.'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

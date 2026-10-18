@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { coordinateSystemSchema } from '../session.js';
 import { executeToolJsx } from '../tool-executor.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_layers — レイヤー一覧の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/Layers/ — Layers collection
@@ -89,7 +89,7 @@ export function register(server: McpServer): void {
     'get_layers',
     {
       title: 'Get Layers',
-      description: 'Get layer structure as a tree',
+      description: 'Get layer structure as a tree' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         include_sublayers: z
           .boolean()
@@ -103,7 +103,7 @@ export function register(server: McpServer): void {
           .describe('Include items within each layer'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

@@ -1,0 +1,172 @@
+{
+  "城市小区域分析：把“附近”拆成真正的到达条件": {
+    "zh-TW": "城市小區域分析：把「附近」拆成真正的到達條件",
+    "en": "Urban site analysis: what makes a place reachable?",
+    "ja": "都市分析：「近い」を実際の到達条件に分ける"
+  },
+  "同一底图、同一尺度、同一目的地；只改变一座桥的开放状态。": {
+    "zh-TW": "同一底圖、同一尺度、同一目的地；只改變一座橋的開放狀態。",
+    "en": "Same map, scale and destination; only one bridge's opening state changes.",
+    "ja": "同じ下図・縮尺・目的地で、橋の開閉だけを変えて比較。"
+  },
+  "教学坐标与通行规则全部为假设  ·  不是实际场地调查  ·  长度为给定路径线段求和，未模拟步行时间": {
+    "zh-TW": "教學座標與通行規則全部為假設  ·  不是實際場地調查  ·  長度為給定路徑線段求和，未模擬步行時間",
+    "en": "Synthetic teaching data and access rules | Not a site survey | Length sums stated path segments; no travel-time model.",
+    "ja": "座標・通行条件はすべて仮定  ·  実地調査ではない  ·  距離は指定経路の線分の合計。歩行時間は未計算"
+  },
+  "08:00  近桥开放": {
+    "zh-TW": "08:00  近橋開放",
+    "en": "08:00  Near bridge open",
+    "ja": "08:00  最寄りの橋が開放"
+  },
+  "21:00  近桥关闭": {
+    "zh-TW": "21:00  近橋關閉",
+    "en": "21:00  Near bridge closed",
+    "ja": "21:00  最寄りの橋が閉鎖"
+  },
+  "图底：建筑轮廓保留院落孔洞": {
+    "zh-TW": "圖底：建築輪廓保留院落孔洞",
+    "en": "Figure-ground with courtyard holes",
+    "ja": "建物の輪郭と中庭の抜きを保持"
+  },
+  "绿地范围": {
+    "zh-TW": "綠地範圍",
+    "en": "Green space",
+    "ja": "緑地の範囲"
+  },
+  "目的地入口": {
+    "zh-TW": "目的地入口",
+    "en": "Destination entrance",
+    "ja": "目的地の入口"
+  },
+  "车站出口": {
+    "zh-TW": "車站出口",
+    "en": "Station exit",
+    "ja": "駅の出口"
+  },
+  "桥 A · 全天": {
+    "zh-TW": "橋 A · 全天開放",
+    "en": "Bridge A · Open all day",
+    "ja": "橋 A · 終日開放"
+  },
+  "桥 B · 已关闭": {
+    "zh-TW": "橋 B · 已關閉",
+    "en": "Bridge B · Closed",
+    "ja": "橋 B · 閉鎖中"
+  },
+  "桥 B · 08:00–20:00": {
+    "zh-TW": "橋 B · 08:00–20:00",
+    "en": "Bridge B · 08:00–20:00",
+    "ja": "橋 B · 08:00–20:00"
+  },
+  "河": {
+    "zh-TW": "河",
+    "en": "River",
+    "ja": "川"
+  },
+  "给定路径 715 m  ·  超出假设的 500 m 距离预算": {
+    "zh-TW": "給定路徑 715 m  ·  超出假設的 500 m 距離預算",
+    "en": "Given route: 715 m | Exceeds the assumed 500 m budget",
+    "ja": "指定経路 715 m  ·  仮定した距離上限 500 m を超過"
+  },
+  "给定路径 495 m  ·  在假设的 500 m 距离预算内": {
+    "zh-TW": "給定路徑 495 m  ·  在假設的 500 m 距離預算內",
+    "en": "Given route: 495 m | Within the assumed 500 m budget",
+    "ja": "指定経路 495 m  ·  仮定した距離上限 500 m 以内"
+  },
+  "须核查另一通路、桥梁开放或目的地时段；不能仍画满圆。": {
+    "zh-TW": "須核查其他通路、橋梁開放或目的地時段；不能仍畫滿圓。",
+    "en": "Check other links, bridge hours and destination hours; a full radius circle would mislead.",
+    "ja": "別経路・橋と目的地の開放時間を確認。半径円のままでは到達範囲を誤る。"
+  },
+  "只证明此时段这条路径；不证明无障碍、舒适或夜间可达。": {
+    "zh-TW": "只證明此時段這條路徑；不證明無障礙、舒適或夜間可達。",
+    "en": "Supports this route only; accessibility, comfort and night access remain unverified.",
+    "ja": "この時刻・経路のみの結果。バリアフリー・快適性・夜間到達は未確認。"
+  },
+  "01  信息 → 元素": {
+    "zh-TW": "01  資訊 → 元素",
+    "en": "01  Information → Elements",
+    "ja": "01  情報 → 図の要素"
+  },
+  "建筑与院落 → 带洞图底": {
+    "zh-TW": "建築與院落 → 帶洞圖底",
+    "en": "Buildings and courtyards → Figure-ground with holes",
+    "ja": "建物と中庭 → 図と地を描き分け"
+  },
+  "入口与桥头 → 不同形状的节点": {
+    "zh-TW": "入口與橋頭 → 不同形狀的節點",
+    "en": "Entrances and bridge ends → Distinct node shapes",
+    "ja": "入口と橋詰 → 形を変えたノード"
+  },
+  "通行连接 → 有拓扑依据的线段": {
+    "zh-TW": "通行連接 → 有拓撲依據的線段",
+    "en": "Traversable links → Lines with stated topology",
+    "ja": "通行接続 → 接続関係に基づく線分"
+  },
+  "关闭规则 → 分时小图与关闭标记": {
+    "zh-TW": "關閉規則 → 分時小圖與關閉標記",
+    "en": "Closures → Time panels and closure markers",
+    "ja": "閉鎖条件 → 時間別の図と閉鎖マーク"
+  },
+  "02  判断 → 设计动作": {
+    "zh-TW": "02  判斷 → 設計動作",
+    "en": "02  Findings → Design actions",
+    "ja": "02  判断 → 設計の操作"
+  },
+  "先确认哪一段路造成服务缺口。": {
+    "zh-TW": "先確認哪一段路造成服務缺口。",
+    "en": "Locate the link that creates the service gap.",
+    "ja": "まず、利用の障害となる区間を特定。"
+  },
+  "再比较延长开桥、增加连接、调整服务点。": {
+    "zh-TW": "再比較延長開橋、增加連接、調整服務點。",
+    "en": "Compare longer hours, new links and service changes.",
+    "ja": "開放時間延長・接続追加・施設配置を比較。"
+  },
+  "同时核查资格、坡度、照明与运营责任。": {
+    "zh-TW": "同時核查資格、坡度、照明與營運責任。",
+    "en": "Check eligibility, slopes, lighting and management.",
+    "ja": "利用条件・勾配・照明・管理責任も確認。"
+  },
+  "不把“缩短 220 m”直接说成综合最优。": {
+    "zh-TW": "不把「縮短 220 m」直接說成綜合最優。",
+    "en": "220 m shorter does not establish the best option.",
+    "ja": "「220 m 短縮」だけで最適案とはしない。"
+  },
+  "03  可追溯的制作": {
+    "zh-TW": "03  可追溯的製作",
+    "en": "03  Traceable production",
+    "ja": "03  根拠を追える制作"
+  },
+  "源要素 ID → 语义 ID → AI 对象 UUID": {
+    "zh-TW": "來源要素 ID → 語義 ID → AI 物件 UUID",
+    "en": "Source feature ID → Semantic ID → AI object UUID",
+    "ja": "元要素 ID → 意味 ID → AI オブジェクト UUID"
+  },
+  "共同 extent + 等比例坐标转换": {
+    "zh-TW": "共同 extent + 等比例座標轉換",
+    "en": "Shared extent + aspect-preserving mapping",
+    "ja": "共通の範囲＋縦横比を保つ座標変換"
+  },
+  "原生文字、线、节点与复合路径": {
+    "zh-TW": "原生文字、線、節點與複合路徑",
+    "en": "Native text, lines, markers and compound paths",
+    "ja": "ネイティブの文字・線・点・複合パス"
+  },
+  "复合孔洞透出下方绿色；不是白块遮盖。": {
+    "zh-TW": "複合孔洞透出下方綠色；不是白塊遮蓋。",
+    "en": "Holes reveal green below, without white covers.",
+    "ja": "白い塗りではなく、穴から下の緑地が見える。"
+  },
+  "下一步取证：桥梁时刻表、入口开放、合法步行网络、坡度与目的地服务资格。": {
+    "zh-TW": "下一步取證：橋梁時刻表、入口開放、合法步行網絡、坡度與目的地服務資格。",
+    "en": "Next evidence: bridge schedules, entrance hours, legal walking links, slopes and service eligibility.",
+    "ja": "次に確認：橋の時間表、入口の開放、歩行が認められる経路網、勾配、目的地の利用条件。"
+  },
+  "MCP 负责把可靠几何与编码落到 Illustrator；不自动计算等时圈、交通量、洪水或城市性能。": {
+    "zh-TW": "MCP 負責把可靠幾何與編碼落到 Illustrator；不自動計算等時圈、交通量、洪水或城市性能。",
+    "en": "MCP draws geometry and encodings in Illustrator; no isochrone, traffic, flood or urban-performance simulation.",
+    "ja": "MCP は幾何と表現を Illustrator に描画。等時間圏・交通量・洪水・都市性能の自動計算は行わない。"
+  }
+}

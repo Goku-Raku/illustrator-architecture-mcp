@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeJsx } from '../../executor/jsx-runner.js';
 import { formatToolResult } from '../tool-executor.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * check_contrast — WCAG コントラスト比チェック
  *
@@ -244,7 +244,7 @@ export function register(server: McpServer): void {
     {
       title: 'Check Contrast',
       description:
-        'Check WCAG color contrast ratios. Manual mode: provide color1 and color2. Auto mode (auto_detect: true): find visible foreground/background pairs by bounding-box overlap (stacking order, opacity and clipping are not considered; gradient/pattern/image backgrounds are reported as unevaluated). Non-RGB colors are converted without ICC profiles, so their ratio is approximate and WCAG pass/fail is null. GrayColor uses ink-quantity interpretation (0=white, 100=black), which differs from the API reference.',
+        'Check WCAG color contrast ratios. Manual mode: provide color1 and color2. Auto mode (auto_detect: true): find visible foreground/background pairs by bounding-box overlap (stacking order, opacity and clipping are not considered; gradient/pattern/image backgrounds are reported as unevaluated). Non-RGB colors are converted without ICC profiles, so their ratio is approximate and WCAG pass/fail is null. GrayColor uses ink-quantity interpretation (0=white, 100=black), which differs from the API reference.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         color1: manualColorSchema.optional().describe('First color (manual mode)'),
         color2: manualColorSchema.optional().describe('Second color (manual mode)'),
@@ -254,7 +254,7 @@ export function register(server: McpServer): void {
           .default(false)
           .describe('Auto-detect overlapping foreground/background color pairs in the document. Do not combine with color1/color2.'),
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const hasManual = params.color1 !== undefined || params.color2 !== undefined;

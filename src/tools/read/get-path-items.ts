@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { executeToolJsx } from '../tool-executor.js';
 import { coordinateSystemSchema } from '../session.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * get_path_items — パスアイテム情報の取得
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/PathItems/ — PathItems collection
@@ -242,7 +242,7 @@ export function register(server: McpServer): void {
     'get_path_items',
     {
       title: 'Get Path Items',
-      description: 'Get path and shape data, including paths inside groups and compound paths (clipping: true marks a clipping-mask path). Note: fill/stroke do not include per-attribute opacity; use the item-level opacity field for transparency.',
+      description: 'Get path and shape data, including paths inside groups and compound paths (clipping: true marks a clipping-mask path). Note: fill/stroke do not include per-attribute opacity; use the item-level opacity field for transparency.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         layer_name: z
           .string()
@@ -260,7 +260,7 @@ export function register(server: McpServer): void {
           .describe('Get selected paths only'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       return executeToolJsx(jsxCode, params, { resolveCoordinate: true });

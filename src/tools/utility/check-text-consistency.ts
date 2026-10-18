@@ -6,7 +6,7 @@ import {
   coordinateSystemSchema,
   resolveCoordinateSystem,
 } from '../session.js';
-import { READ_ANNOTATIONS } from '../modify/shared.js';
+import { WRITE_IDEMPOTENT_ANNOTATIONS, UUID_METADATA_WRITE_NOTICE } from '../modify/shared.js';
 /**
  * check_text_consistency — テキスト一貫性チェック（ダミーテキスト検出・フォント統計）
  * @see https://ai-scripting.docsforadobe.dev/jsobjref/TextFrameItem/ — contents, textRanges
@@ -312,7 +312,7 @@ export function register(server: McpServer): void {
     {
       title: 'Check Text Consistency',
       description:
-        'Analyze text frames for dummy/placeholder text and known notation variation patterns (katakana long vowel, fullwidth/halfwidth, wave dash/tilde). Returns all text contents for LLM-driven deeper analysis of inconsistencies, typos, and version mismatches. Note: AI analysis may miss errors and does not replace a human text review.',
+        'Analyze text frames for dummy/placeholder text and known notation variation patterns (katakana long vowel, fullwidth/halfwidth, wave dash/tilde). Returns all text contents for LLM-driven deeper analysis of inconsistencies, typos, and version mismatches. Note: AI analysis may miss errors and does not replace a human text review.' + UUID_METADATA_WRITE_NOTICE,
       inputSchema: {
         artboard_index: z
           .number()
@@ -322,7 +322,7 @@ export function register(server: McpServer): void {
           .describe('Filter by artboard index (0-based)'),
         coordinate_system: coordinateSystemSchema,
       },
-      annotations: READ_ANNOTATIONS,
+      annotations: WRITE_IDEMPOTENT_ANNOTATIONS,
     },
     async (params) => {
       const resolvedParams = { ...params, coordinate_system: await resolveCoordinateSystem(params.coordinate_system) };
